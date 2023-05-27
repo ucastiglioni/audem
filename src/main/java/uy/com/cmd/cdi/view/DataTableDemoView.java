@@ -13,13 +13,12 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.primefaces.omega.view;
+package uy.com.cmd.cdi.view;
 
 import org.primefaces.event.ToggleEvent;
 import org.primefaces.model.Visibility;
-import org.primefaces.omega.domain.Customer;
 import org.primefaces.omega.domain.Product;
-import org.primefaces.omega.service.CustomerService;
+import uy.com.cmd.cdi.service.CustomerService;
 import org.primefaces.omega.service.OrderService;
 import org.primefaces.omega.service.ProductService;
 
@@ -29,6 +28,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import uy.com.cmd.cdi.domain.Customer;
 
 @Named
 @ViewScoped

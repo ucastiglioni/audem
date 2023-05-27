@@ -13,10 +13,12 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.primefaces.omega.domain;
+package uy.com.cmd.cdi.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import org.primefaces.omega.domain.CustomerStatus;
+import org.primefaces.omega.domain.Representative;
 
 public class Customer implements Serializable {
 

@@ -13,16 +13,15 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.primefaces.omega.view;
+package uy.com.cmd.cdi.view;
 
-import org.primefaces.omega.domain.Customer;
-import org.primefaces.omega.service.CustomerService;
-
+import uy.com.cmd.cdi.service.CustomerService;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
+import uy.com.cmd.cdi.domain.Customer;
 
 @Named
 @RequestScoped

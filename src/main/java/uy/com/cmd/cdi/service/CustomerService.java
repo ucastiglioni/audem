@@ -13,10 +13,10 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.primefaces.omega.service;
+package uy.com.cmd.cdi.service;
 
-import org.primefaces.omega.domain.Country;
-import org.primefaces.omega.domain.Customer;
+
+
 import org.primefaces.omega.domain.CustomerStatus;
 import org.primefaces.omega.domain.Representative;
 
@@ -26,6 +26,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import uy.com.cmd.cdi.domain.Country;
+import uy.com.cmd.cdi.domain.Customer;
 
 @Named
 @ApplicationScoped
@@ -95,6 +97,6 @@ public class CustomerService {
     }
 
     private Representative getRepresentative() {
-        return representatives[(int) (Math.random() * representatives.length)];
+        return representatives[(int) (Math.random() * representatives.length)]; 
     }
 }
