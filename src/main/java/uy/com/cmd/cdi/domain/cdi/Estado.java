@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class Estado implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique=true,nullable = false)
+    @Column(name = "id")
     private int id;
     
     @Column(name="descripcion")

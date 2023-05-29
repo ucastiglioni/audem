@@ -22,7 +22,7 @@ public class Pago implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     private Integer id;
 
     @ManyToOne

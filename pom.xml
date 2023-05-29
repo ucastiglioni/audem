@@ -119,13 +119,13 @@
             <artifactId>openwebbeans-web</artifactId>
             <version>${owb.version}</version>
         </dependency>
-        <dependency>
+       <!-- <dependency>
             <groupId>org.apache.openwebbeans</groupId>
             <artifactId>openwebbeans-jsf</artifactId>
             <version>${owb.version}</version>
-        </dependency>
+        </dependency>-->
 
-        <!-- Export Demo Impl -->
+        
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>

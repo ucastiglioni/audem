@@ -25,7 +25,7 @@ public class Usuario implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "id")
     private int id;
     
     @ManyToOne(fetch = FetchType.LAZY)

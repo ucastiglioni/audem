@@ -26,7 +26,7 @@ public class Socio implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     private int id;
 
     @Column
@@ -64,6 +64,8 @@ public class Socio implements Serializable {
     
     @Column
     private Date vencimientoCSalud;
+    
+    @Column String email;
     
     @Column(name = "foto")
     byte[] foto;
@@ -192,6 +194,15 @@ public class Socio implements Serializable {
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+       
     
     @Override
     public int hashCode() {

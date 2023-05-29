@@ -8,7 +8,10 @@
     <ui:define name="title">Alta Socio</ui:define>
 
     <ui:define name="content">
-        <h:form>
+        <h:form id="frmSocio">
+            <p:messages showSummary="true">
+                <p:autoUpdate />
+            </p:messages>
             <div class="grid">
                 <div class="col-12 ">
                     <div class="card ui-fluid">
@@ -17,60 +20,60 @@
                         <div class="formgrid grid">
                             <div class="field col">
                                 <p:outputLabel for="name1">Nombre</p:outputLabel>
-                                <p:inputText id="name1" />
+                                <p:inputText id="name1" value="#{socioController.socio.nombre}" />
                             </div>
                             <div class="field col">
                                 <p:outputLabel for="apellido1">Apellido</p:outputLabel>
-                                <p:inputText id="apellido1" />
+                                <p:inputText id="apellido1" value="#{socioController.socio.apellido}"/>
                             </div>
 
                         </div>
                         <div class="formgrid grid">
                             <div class="field col">
                                 <p:outputLabel for="ci">C.I.</p:outputLabel>
-                                <p:inputText id="ci" />
+                                <p:inputText id="ci" value="#{socioController.socio.ci}"/>
                             </div>
                             <div class="field col">
                                 <p:outputLabel for="fechaNac">Fecha nac.</p:outputLabel>
-                                <p:datePicker  id="fechaNac" showIcon="true"/>
+                                <p:datePicker  id="fechaNac" showIcon="true" value="#{socioController.socio.fechaNacimiento}" />
                             </div>
                         </div>
                         <div class="formgrid grid">
                             <div class="field col">
                                 <p:outputLabel for="domicilio">Domicilio</p:outputLabel>
-                                <p:inputText id="domicilio" />
+                                <p:inputText id="domicilio" value="#{socioController.socio.domicilio}" />
                             </div>
                             <div class="field col">
                                 <p:outputLabel for="celular">Celular</p:outputLabel>
-                                <p:inputText id="celular" />
+                                <p:inputText id="celular" value="#{socioController.socio.celular}" />
                             </div>
                         </div>
 
                         <div class="formgrid grid">
                             <div class="field col">
                                 <p:outputLabel for="celularEmerg">Celular Emerg.</p:outputLabel>
-                                <p:inputText id="celularEmerg" />
+                                <p:inputText id="celularEmerg" value="#{socioController.socio.celularEmergencia}"/>
                             </div>
                             <div class="field col">
                                 <p:outputLabel for="emergenciaMovil">Emergencia móvil</p:outputLabel>
-                                <p:inputText id="emergenciaMovil" />
+                                <p:inputText id="emergenciaMovil" value="#{socioController.socio.emergenciaMovil}" />
                             </div>
 
                         </div>
                         <div class="formgrid grid">
                             <div class="field col">
                                 <p:outputLabel for="mutualista">Mutualista</p:outputLabel>
-                                <p:inputText id="mutualista" />
+                                <p:inputText id="mutualista" value="#{socioController.socio.mutualista}"/>
                             </div>
                             <div class="field col">
                                 <p:outputLabel for="fechaCSalud">Fecha venc. Carnet Salud </p:outputLabel>
-                                <p:datePicker  id="fechaCSalud" showIcon="true"/>
+                                <p:datePicker  id="fechaCSalud" showIcon="true" value="#{socioController.socio.vencimientoCSalud}"/>
                             </div>
                         </div>
                         <div class="formgrid grid">
                             <div class="field col">
                                 <p:outputLabel for="email">Email</p:outputLabel>
-                                <p:inputText id="email" />
+                                <p:inputText id="email" value="#{socioController.socio.email}"/>
                             </div>
                             <div class="field col">
                                 <p:outputLabel for="observaciones">Observaciones</p:outputLabel>
@@ -79,7 +82,10 @@
                         </div>
                         <div class="formgrid grid">
                             <div class="field col">
-                              <p:button value="Guardar" styleClass="ui-button-success mr-2 mb-2"/>
+                                <p:commandButton value="Guardar" 
+                                                 styleClass="ui-button-success mr-2 mb-2" 
+                                                 action="#{socioController.guardarSocio}" 
+                                                 update="frmSocio"/>
                             </div>
                             <div class="field col">
                                 <p:button value="Cancelar" styleClass="ui-button-danger" outcome="dashboard"/>

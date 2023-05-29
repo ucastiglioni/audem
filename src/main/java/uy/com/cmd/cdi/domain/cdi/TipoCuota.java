@@ -24,7 +24,7 @@ public class TipoCuota implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "nombreTipo")

@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.primefaces.omega.view;
+package uy.com.cmd.cdi.view;
 
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.ToggleEvent;
