@@ -1,0 +1,128 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Tipo cuota</ui:define>
+
+    <ui:define name="content">
+        <h:form id="form">
+            <div class="grid crud-demo">
+                <div class="col-12">
+                    <div class="card">
+                        <p:growl id="messages" showDetail="true" />
+
+                        <p:toolbar styleClass="mb-4">
+                            <p:toolbarGroup>
+                                <p:commandButton value="Nueva" icon="pi pi-plus" actionListener="#{tipoCuotaController.openNew}" 
+                                                 update="manage-tipoCuota-content" oncomplete="PF('manageTipoCuotaDialog').show()" 
+                                                 styleClass="ui-button-success" style="margin-right: .5rem" />
+                                <p:commandButton id="delete-tipoCuotas-button" value="#{tipoCuotaController.deleteButtonMessage}" icon="pi pi-trash" actionListener="#{tipoCuotaController.deleteSelectedTipoCuotas}" 
+                                                 styleClass="ui-button-danger" disabled="#{!tipoCuotaController.hasSelectedTipoCuotas()}" update="@this form:dt-tipoCuotas" >
+                                    <p:confirm header="Confirmar" message="Elimina el/los tipoCuotas seleccionados?" icon="pi pi-exclamation-triangle" />
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                            <p:toolbarGroup align="right">
+                                <!--<p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download"/>-->
+                                <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
+                                    <p:dataExporter type="pdf" target="dt-tipoCuotas" fileName="tipoCuotas"/>
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:dataTable id="dt-tipoCuotas" widgetVar="dtTipoCuotas" var="tipoCuota" value="#{tipoCuotaController.tipoCuotas}" reflow="true" styleClass="products-table"
+                                     selection="#{tipoCuotaController.selectedTipoCuotas}" rowKey="#{tipoCuota.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                <div class="products-table-header">
+                                    <span style="font-weight: bold">TipoCuotas</span>
+
+                                    <span class="filter-container ui-input-icon-left">
+                                        <i class="pi pi-search"></i>
+                                        <p:inputText id="globalFilter" onkeyup="PF('dtTipoCuotas').filter()" placeholder="Buscar" />
+                                    </span>
+                                </div>
+                            </f:facet>
+
+                            <p:ajax event="rowToggle" listener="#{tipoCuotaController.onRowToggle}" />
+                            <p:ajax event="rowSelect" update=":form:delete-tipoCuotas-button" />
+                            <p:ajax event="rowUnselect" update=":form:delete-tipoCuotas-button" />
+                            <p:ajax event="rowSelectCheckbox" update=":form:delete-tipoCuotas-button" />
+                            <p:ajax event="rowUnselectCheckbox" update=":form:delete-tipoCuotas-button" />
+                            <p:ajax event="toggleSelect" update=":form:delete-tipoCuotas-button" />
+
+                            <p:column selectionMode="multiple" exportable="false"></p:column>
+                            <p:column exportable="false">
+                                <p:rowToggler />
+                            </p:column>
+                            <p:column headerText="Code" sortBy="#{tipoCuota.id}" filterBy="#{tipoCuota.id}">
+                                <h:outputText value="#{tipoCuota.id}" />
+                            </p:column>
+                            <p:column headerText="Nombre" sortBy="#{tipoCuota.nombreTipo}" filterBy="#{tipoCuota.nombreTipo}">
+                                <h:outputText value="#{tipoCuota.nombreTipo}" />
+                            </p:column>
+                            
+                            <p:column exportable="false">
+                                <p:commandButton icon="pi pi-pencil" update=":form:manage-tipoCuota-content" oncomplete="PF('manageTipoCuotaDialog').show()" 
+                                    styleClass="edit-button rounded-button ui   -button-success" process="@this">
+                                    <f:setPropertyActionListener value="#{tipoCuota}" target="#{tipoCuotaController.tipoCuota}" />
+                                </p:commandButton>
+                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this" oncomplete="PF('deleteTipoCuotaDialog').show()" >
+                                    <f:setPropertyActionListener value="#{tipoCuota}" target="#{tipoCuotaController.tipoCuota}" />
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+                        <p:confirmDialog widgetVar="deleteTipoCuotaDialog" showEffect="fade" width="300" message="Eliminar el tipoCuota?" header="Confirm" severity="warn">
+                            <p:commandButton value="Si" icon="pi pi-check" actionListener="#{tipoCuotaController.deleteTipoCuota}" process="@this" oncomplete="PF('deleteTipoCuotaDialog').hide()"/>
+                            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('deleteTipoCuotaDialog').hide()" />
+                        </p:confirmDialog>
+
+                        <p:confirmDialog global="true" showEffect="fade" width="300">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times" />
+                        </p:confirmDialog>
+
+                        <p:dialog header="Detalle tipoCuota" showEffect="fade" modal="true" widgetVar="manageTipoCuotaDialog" responsive="true">
+                            <p:outputPanel id="manage-tipoCuota-content" class="ui-fluid">
+                                <p:outputPanel rendered="#{not empty tipoCuotaController.tipoCuota}">
+                                    <p:graphicImage name="images/product/avatar_2.png" library="demo" styleClass="product-image" rendered="#{not empty crudDemoView.selectedProduct.image}" />
+                                    <div class="grid">
+                                        <div class="col-12 ">
+                                            <div class="card ui-fluid">
+                                                <h5>TipoCuota</h5>
+
+                                                <div class="formgrid grid">
+                                                    <div class="field">
+                                                        <p:outputLabel for="name">Nombre</p:outputLabel>
+                                                        <p:inputText id="name" value="#{tipoCuotaController.tipoCuota.nombreTipo}" />
+                                                    </div>
+                                                </div>
+                                                <div class="formgrid grid">
+                                                    <div class="field">
+                                                        <p:outputLabel for="importe">Importe-cuota</p:outputLabel>
+                                                        <p:inputText id="importe" value="#{tipoCuotaController.tipoCuota.importe}" />
+                                                    </div>
+                                                </div>
+                                                <div class="field">
+                                                    <p:outputLabel for="observaciones">Observaciones</p:outputLabel>
+                                                    <p:inputText id="observaciones" value="#{tipoCuotaController.tipoCuota.observacion}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </p:outputPanel>
+                            </p:outputPanel>
+                            <f:facet name="footer"> 
+                                <p:commandButton value="Guardar" icon="pi pi-check" actionListener="#{tipoCuotaController.guardarTipoCuota}" update="manage-tipoCuota-content form:dt-tipoCuotas" process="manage-tipoCuota-content @this" />
+                                <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('manageTipoCuotaDialog').hide()" class="ui-button-secondary" />
+                            </f:facet>
+                        </p:dialog> 
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -10,7 +10,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import uy.com.cmd.cdi.domain.cdi.Socio;
+import uy.com.cmd.cdi.domain.cdi.Estado;
+
+
+
 
 
 /**
@@ -18,7 +21,7 @@ import uy.com.cmd.cdi.domain.cdi.Socio;
  * @author maxi
  */
 @Stateless
-public class SocioFacade extends AbstractFacade<Socio> implements SocioFacadeLocal {
+public class EstadoFacade extends AbstractFacade<Estado> implements EstadoFacadeLocal {
 
     @PersistenceContext(unitName = "cdiPU")
     private EntityManager em;
@@ -28,25 +31,25 @@ public class SocioFacade extends AbstractFacade<Socio> implements SocioFacadeLoc
         return em;
     }
 
-    public SocioFacade() {
-        super(Socio.class);
+    public EstadoFacade() {
+        super(Estado.class);
     }
 
     @Override
-    public Socio findByEmail(String email) {
+    public Estado findByNombre(String nombre) {
 
-        Socio s = null;
+        Estado s = null;
         try {
-            String consulta= "from Socio u where u.email=?1";
+            String consulta= "from Estado u where u.descripcion=?1";
             
             Query query = em.createQuery(consulta);
-            query.setParameter(1, email);
-            List<Socio> lista = query.getResultList();
+            query.setParameter(1, nombre);
+            List<Estado> lista = query.getResultList();
             if (!lista.isEmpty()) {
                 s = lista.get(0);
             }
             if (s != null) {
-                System.out.println(s.getNombre());
+                System.out.println(s.getDescripcion());
                 
             }
         } catch (Exception e) {
@@ -56,5 +59,4 @@ public class SocioFacade extends AbstractFacade<Socio> implements SocioFacadeLoc
     }
 
 
-    
 }

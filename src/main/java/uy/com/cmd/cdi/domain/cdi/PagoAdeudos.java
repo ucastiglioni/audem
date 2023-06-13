@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author max
  */
-class PagoAdeudos implements Serializable{
+public class PagoAdeudos implements Serializable{
      private String  id;
     private Integer idPago;
     private Date    fechaPago;

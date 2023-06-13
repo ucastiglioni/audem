@@ -1,0 +1,119 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Estado</ui:define>
+
+    <ui:define name="content">
+        <h:form id="form">
+            <div class="grid crud-demo">
+                <div class="col-12">
+                    <div class="card">
+                        <p:growl id="messages" showDetail="true" />
+
+                        <p:toolbar styleClass="mb-4">
+                            <p:toolbarGroup>
+                                <p:commandButton value="Nuevo" icon="pi pi-plus" actionListener="#{estadoController.openNew}" 
+                                                 update="manage-estado-content" oncomplete="PF('manageEstadoDialog').show()" 
+                                                 styleClass="ui-button-success" style="margin-right: .5rem" />
+                                <p:commandButton id="delete-estados-button" value="#{estadoController.deleteButtonMessage}" icon="pi pi-trash" actionListener="#{estadoController.deleteSelectedEstados}" 
+                                                 styleClass="ui-button-danger" disabled="#{!estadoController.hasSelectedEstados()}" update="@this form:dt-estados" >
+                                    <p:confirm header="Confirmar" message="Elimina el/los estados seleccionados?" icon="pi pi-exclamation-triangle" />
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                            <p:toolbarGroup align="right">
+                                <!--<p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download"/>-->
+                                <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
+                                    <p:dataExporter type="pdf" target="dt-estados" fileName="estados"/>
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:dataTable id="dt-estados" widgetVar="dtEstados" var="estado" value="#{estadoController.estados}" reflow="true" styleClass="products-table"
+                                     selection="#{estadoController.selectedEstados}" rowKey="#{estado.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                <div class="products-table-header">
+                                    <span style="font-weight: bold">Estados</span>
+
+                                    <span class="filter-container ui-input-icon-left">
+                                        <i class="pi pi-search"></i>
+                                        <p:inputText id="globalFilter" onkeyup="PF('dtEstados').filter()" placeholder="Buscar" />
+                                    </span>
+                                </div>
+                            </f:facet>
+
+                            <p:ajax event="rowToggle" listener="#{estadoController.onRowToggle}" />
+                            <p:ajax event="rowSelect" update=":form:delete-estados-button" />
+                            <p:ajax event="rowUnselect" update=":form:delete-estados-button" />
+                            <p:ajax event="rowSelectCheckbox" update=":form:delete-estados-button" />
+                            <p:ajax event="rowUnselectCheckbox" update=":form:delete-estados-button" />
+                            <p:ajax event="toggleSelect" update=":form:delete-estados-button" />
+
+                            <p:column selectionMode="multiple" exportable="false"></p:column>
+                            <p:column exportable="false">
+                                <p:rowToggler />
+                            </p:column>
+                            <p:column headerText="Code" sortBy="#{estado.id}" filterBy="#{estado.id}">
+                                <h:outputText value="#{estado.id}" />
+                            </p:column>
+                            <p:column headerText="Nombre" sortBy="#{estado.descripcion}" filterBy="#{estado.descripcion}">
+                                <h:outputText value="#{estado.descripcion}" />
+                            </p:column>
+                            
+                            <p:column exportable="false">
+                                <p:commandButton icon="pi pi-pencil" update=":form:manage-estado-content" oncomplete="PF('manageEstadoDialog').show()" 
+                                    styleClass="edit-button rounded-button ui   -button-success" process="@this">
+                                    <f:setPropertyActionListener value="#{estado}" target="#{estadoController.estado}" />
+                                </p:commandButton>
+                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this" oncomplete="PF('deleteEstadoDialog').show()" >
+                                    <f:setPropertyActionListener value="#{estado}" target="#{estadoController.estado}" />
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+                        <p:confirmDialog widgetVar="deleteEstadoDialog" showEffect="fade" width="300" message="Eliminar el estado?" header="Confirm" severity="warn">
+                            <p:commandButton value="Si" icon="pi pi-check" actionListener="#{estadoController.deleteEstado}" process="@this" oncomplete="PF('deleteEstadoDialog').hide()"/>
+                            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('deleteEstadoDialog').hide()" />
+                        </p:confirmDialog>
+
+                        <p:confirmDialog global="true" showEffect="fade" width="300">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times" />
+                        </p:confirmDialog>
+
+                        <p:dialog header="Detalle estado" showEffect="fade" modal="true" widgetVar="manageEstadoDialog" responsive="true">
+                            <p:outputPanel id="manage-estado-content" class="ui-fluid">
+                                <p:outputPanel rendered="#{not empty estadoController.estado}">
+                                    <p:graphicImage name="images/product/avatar_2.png" library="demo" styleClass="product-image" rendered="#{not empty crudDemoView.selectedProduct.image}" />
+                                    <div class="grid">
+                                        <div class="col-12 ">
+                                            <div class="card ui-fluid">
+                                                <h5>Estado</h5>
+
+                                                <div class="formgrid grid">
+                                                    <div class="field">
+                                                        <p:outputLabel for="name">Nombre</p:outputLabel>
+                                                        <p:inputText id="name" value="#{estadoController.estado.descripcion}" />
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </p:outputPanel>
+                            </p:outputPanel>
+                            <f:facet name="footer"> 
+                                <p:commandButton value="Guardar" icon="pi pi-check" actionListener="#{estadoController.guardarEstado}" update="manage-estado-content form:dt-estados" process="manage-estado-content @this" />
+                                <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('manageEstadoDialog').hide()" class="ui-button-secondary" />
+                            </f:facet>
+                        </p:dialog> 
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

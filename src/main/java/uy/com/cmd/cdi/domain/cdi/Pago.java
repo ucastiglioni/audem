@@ -115,6 +115,12 @@ public class Pago implements Serializable {
 
     public Pago() {
     }
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + this.id;
+        return hash;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -126,9 +132,13 @@ public class Pago implements Serializable {
             return false;
         }
         final Pago other = (Pago) obj;
-        if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
+        if (this.id != other.id){
             return false;
         }
         return true;
+    }
+    @Override
+    public String toString() {
+        return "Pago{" + "id=" + id + '}';
     }
 }

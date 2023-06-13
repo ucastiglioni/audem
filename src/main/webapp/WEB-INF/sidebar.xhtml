@@ -5,6 +5,14 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:po="http://primefaces.org/omega">
+     <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="cmd.css" />
+        <h:outputStylesheet library="css" name="default.css" />
+        <title>CDI - Centro Deportivo Integral</title>
+        
+        <f:event type="preRenderView" listener="#{sidebarController.verificarSesion()}" />
+    </h:head>
   <h:form id="menuform">
     <div class="sidebar">
         <div class="sidebar-scroll-content">
@@ -19,22 +27,49 @@
                 <!--<p:graphicImage name="images/profile.png" library="omega-layout" />-->
                 <p:graphicImage style="height:50%; width:50%;" name="images/logocdi.png" library="omega-layout" />
                 <a id="profile-button" href="#">
-                    <span class="username">Bienvenido Mauricio</span>
-                    <i class="pi pi-fw pi-cog"/>
+                    
+                    <span class="username">Bienvenido #{sidebarController.usuario.nombre}</span>
+                   <p:commandButton 
+                                                icon="pi pi-sign-out" title="Cerrar sesión" 
+                                                action="/login?faces-redirect=true" 
+                                                actionListener="#{sidebarController.cerrarSesion()}" 
+                                                />
+                    
+                    
+                    <i class="pi pi-fw pi-cog" onclick=""/>
                 </a>
                 <ul>
                     <li><a href="#"><i class="pi pi-fw pi-sliders-h"/><span>Account</span></a></li>
                     <li><a href="#"><i class="pi pi-fw pi-bell"/><span>Notifications</span><span class="menu-badge">2</span></a></li>
-                    <li><a href="#"><i class="pi pi-fw pi-sign-out"/><span>Logout</span></a></li>
+                  <!-- <li><a href="#"><i class="pi pi-fw pi-sign-out"/><span>Logout</span></a></li> -->
+              
+                    
+                    
+                    <f:facet name="options">        
+                                    
+                                </f:facet>
                 </ul>
             </div>
             <div class="menu">
                 <po:menu widgetVar="OmegaMenuWidget">
-                    <p:menuitem id="m_dashboard" value="Dashboard" icon="pi pi-fw pi-home" outcome="/dashboard"/>
+                    <p:menuitem id="m_dashboard" value="Menú principal" icon="pi pi-fw pi-home" outcome="/dashboard"/>
+                    
                     <p:submenu id="m_components_socios" label="Socios" icon="pi pi-fw pi-user">
                         <p:menuitem id="m_formlayout_socio" value="Altas" icon="pi pi-fw pi-id-card" outcome="/protegido/socios"/> 
                     </p:submenu>
+                    <p:submenu id="m_components_pagos" label="Pagos" icon="pi pi-fw pi-user">
+                        <p:menuitem id="m_formlayout_pagos" value="Listar" icon="pi pi-fw pi-id-card" outcome="/protegido/pagos"/> 
+                    </p:submenu>
+                    <p:submenu id="m_components_categorias" label="Categorías" icon="pi pi-fw pi-user">
+                        <p:menuitem id="m_formlayout_categoria" value="Altas" icon="pi pi-fw pi-id-card" outcome="/protegido/categorias"/> 
+                    </p:submenu>
+                    <p:submenu id="m_components_estados" label="Estados" icon="pi pi-fw pi-user">
+                        <p:menuitem id="m_formlayout_estados" value="Altas" icon="pi pi-fw pi-id-card" outcome="/protegido/estados"/> 
+                    </p:submenu>
                     
+                    <p:submenu id="m_components_tipocuotas" label="Tipos cuota" icon="pi pi-fw pi-user">
+                        <p:menuitem id="m_formlayout_tipoCuota" value="Altas" icon="pi pi-fw pi-id-card" outcome="/protegido/tipocuota"/> 
+                    </p:submenu>
                     
                     <p:submenu id="m_components" label="UI Kit" icon="pi pi-fw pi-star" badge="2">
                         <p:menuitem id="m_formlayout" value="Form Layout" icon="pi pi-fw pi-id-card" outcome="/formlayout"/>

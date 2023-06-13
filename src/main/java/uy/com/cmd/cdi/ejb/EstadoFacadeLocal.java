@@ -6,7 +6,8 @@
 package uy.com.cmd.cdi.ejb;
 import java.util.List;
 import javax.ejb.Local;
-import uy.com.cmd.cdi.domain.cdi.Socio;
+import uy.com.cmd.cdi.domain.cdi.Estado;
+
 
 
 /**
@@ -14,19 +15,20 @@ import uy.com.cmd.cdi.domain.cdi.Socio;
  * @author maxi
  */
 @Local
-public interface SocioFacadeLocal {
+public interface EstadoFacadeLocal {
 
-    void create(Socio socio);
-
-    void edit(Socio socio);
-
-    void remove(Socio socio);
-
-    List<Socio> findAll();
-
-    List<Socio> findRange(int[] range);
+    void create(Estado estado);
     
-    Socio findByEmail(String email);
+    void edit(Estado estado);
+
+    void remove(Estado estado);
+    //Categoria find(int id);
+
+    List<Estado> findAll();
+
+    List<Estado> findRange(int[] range);
+    
+    Estado findByNombre(String nombre);
 
     int count();
     

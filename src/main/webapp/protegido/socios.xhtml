@@ -5,100 +5,364 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
 
-    <ui:define name="title">Alta Socio</ui:define>
+    <ui:define name="title">Crud</ui:define>
 
     <ui:define name="content">
-        <h:form id="frmSocio">
-            <p:messages showSummary="true">
-                <p:autoUpdate />
-            </p:messages>
-            <div class="grid">
-                <div class="col-12 ">
-                    <div class="card ui-fluid">
-                        <h5>Socio</h5>
+        <h:form id="form">
+            <div class="grid crud-demo">
+                <div class="col-12">
+                    <div class="card">
+                        <p:growl id="messages" showDetail="true" />
 
-                        <div class="formgrid grid">
-                            <div class="field col">
-                                <p:outputLabel for="name1">Nombre</p:outputLabel>
-                                <p:inputText id="name1" value="#{socioController.socio.nombre}" />
-                            </div>
-                            <div class="field col">
-                                <p:outputLabel for="apellido1">Apellido</p:outputLabel>
-                                <p:inputText id="apellido1" value="#{socioController.socio.apellido}"/>
-                            </div>
+                        <p:toolbar styleClass="mb-4">
+                            <p:toolbarGroup>
+                                <p:commandButton value="New" icon="pi pi-plus" actionListener="#{socioController.openNew}" 
+                                                 update="manage-socio-content" oncomplete="PF('manageSocioDialog').show()" 
+                                                 styleClass="ui-button-success" style="margin-right: .5rem" />
+                                <p:commandButton id="delete-socios-button" value="#{socioController.deleteButtonMessage}" icon="pi pi-trash" actionListener="#{socioController.deleteSelectedSocios}" 
+                                                 styleClass="ui-button-danger" disabled="#{!socioController.hasSelectedSocios()}" update="@this form:dt-socios" >
+                                    <p:confirm header="Confirmar" message="Elimina el/los socios seleccionados?" icon="pi pi-exclamation-triangle" />
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                            <p:toolbarGroup align="right">
+                                <!--<p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download"/>-->
+                                <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
+                                    <p:dataExporter type="pdf" target="dt-socios" fileName="socios"/>
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:dataTable id="dt-socios" widgetVar="dtSocios" var="socio" value="#{socioController.socios}" reflow="true" styleClass="products-table"
+                                     selection="#{socioController.selectedSocios}" rowKey="#{socio.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                <div class="products-table-header">
+                                    <span style="font-weight: bold">Socios</span>
 
-                        </div>
-                        <div class="formgrid grid">
-                            <div class="field col">
-                                <p:outputLabel for="ci">C.I.</p:outputLabel>
-                                <p:inputText id="ci" value="#{socioController.socio.ci}"/>
-                            </div>
-                            <div class="field col">
-                                <p:outputLabel for="fechaNac">Fecha nac.</p:outputLabel>
-                                <p:datePicker  id="fechaNac" showIcon="true" value="#{socioController.socio.fechaNacimiento}" />
-                            </div>
-                        </div>
-                        <div class="formgrid grid">
-                            <div class="field col">
-                                <p:outputLabel for="domicilio">Domicilio</p:outputLabel>
-                                <p:inputText id="domicilio" value="#{socioController.socio.domicilio}" />
-                            </div>
-                            <div class="field col">
-                                <p:outputLabel for="celular">Celular</p:outputLabel>
-                                <p:inputText id="celular" value="#{socioController.socio.celular}" />
-                            </div>
-                        </div>
+                                    <span class="filter-container ui-input-icon-left">
+                                        <i class="pi pi-search"></i>
+                                        <p:inputText id="globalFilter" onkeyup="PF('dtSocios').filter()" placeholder="Buscar" />
+                                    </span>
+                                </div>
+                            </f:facet>
 
-                        <div class="formgrid grid">
-                            <div class="field col">
-                                <p:outputLabel for="celularEmerg">Celular Emerg.</p:outputLabel>
-                                <p:inputText id="celularEmerg" value="#{socioController.socio.celularEmergencia}"/>
-                            </div>
-                            <div class="field col">
-                                <p:outputLabel for="emergenciaMovil">Emergencia móvil</p:outputLabel>
-                                <p:inputText id="emergenciaMovil" value="#{socioController.socio.emergenciaMovil}" />
-                            </div>
+                            <p:ajax event="rowToggle" listener="#{socioController.onRowToggle}" />
+                            <p:ajax event="rowSelect" update=":form:delete-socios-button" />
+                            <p:ajax event="rowUnselect" update=":form:delete-socios-button" />
+                            <p:ajax event="rowSelectCheckbox" update=":form:delete-socios-button" />
+                            <p:ajax event="rowUnselectCheckbox" update=":form:delete-socios-button" />
+                            <p:ajax event="toggleSelect" update=":form:delete-socios-button" />
 
-                        </div>
-                        <div class="formgrid grid">
-                            <div class="field col">
-                                <p:outputLabel for="mutualista">Mutualista</p:outputLabel>
-                                <p:inputText id="mutualista" value="#{socioController.socio.mutualista}"/>
-                            </div>
-                            <div class="field col">
-                                <p:outputLabel for="fechaCSalud">Fecha venc. Carnet Salud </p:outputLabel>
-                                <p:datePicker  id="fechaCSalud" showIcon="true" value="#{socioController.socio.vencimientoCSalud}"/>
-                            </div>
-                        </div>
-                        <div class="formgrid grid">
-                            <div class="field col">
-                                <p:outputLabel for="email">Email</p:outputLabel>
-                                <p:inputText id="email" value="#{socioController.socio.email}"/>
-                            </div>
-                            <div class="field col">
-                                <p:outputLabel for="observaciones">Observaciones</p:outputLabel>
-                                <p:inputText id="observaciones" />
-                            </div>
-                        </div>
-                        <div class="formgrid grid">
-                            <div class="field col">
-                                <p:commandButton value="Guardar" 
-                                                 styleClass="ui-button-success mr-2 mb-2" 
-                                                 action="#{socioController.guardarSocio}" 
-                                                 update="frmSocio"/>
-                            </div>
-                            <div class="field col">
-                                <p:button value="Cancelar" styleClass="ui-button-danger" outcome="dashboard"/>
-                            </div>
-                        </div>
+                            <p:column selectionMode="multiple" exportable="false"></p:column>
+                            <p:column exportable="false">
+                                <p:rowToggler />
+                            </p:column>
+                            <p:column headerText="Code" sortBy="#{socio.id}" filterBy="#{socio.id}">
+                                <h:outputText value="#{socio.id}" />
+                            </p:column>
+                            <p:column headerText="Nombre" sortBy="#{socio.nombre}" filterBy="#{socio.nombre}">
+                                <h:outputText value="#{socio.nombre}" />
+                            </p:column>
+                            <p:column headerText="Apellido" sortBy="#{socio.apellido}" filterBy="#{socio.apellido}">
+                                <h:outputText value="#{socio.apellido}" />
+                            </p:column>
+                            <p:column headerText="CI" sortBy="#{socio.ci}" filterBy="#{socio.ci}">
+                                <h:outputText value="#{socio.ci}" />
+                            </p:column>
+                            <p:column headerText="Celular" sortBy="#{socio.celular}" filterBy="#{socio.celular}">
+                                <h:outputText value="#{socio.celular}" />
+                            </p:column>
+                            <p:column exportable="false">
+                                <p:commandButton icon="pi pi-pencil" update=":form:manage-socio-content" oncomplete="PF('manageSocioDialog').show()" 
+                                                 styleClass="edit-button rounded-button ui-button-success" process="@this">
+                                    <f:setPropertyActionListener value="#{socio}" target="#{socioController.socio}" />
+                                </p:commandButton>
+                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this" oncomplete="PF('deleteSocioDialog').show()" >
+                                    <f:setPropertyActionListener value="#{socio}" target="#{socioController.socio}" />
+                                </p:commandButton>
+                                <p:commandButton class="ui-button-warning rounded-button" 
+                                                 icon="pi pi-money-bill" process="@this" 
+                                                 oncomplete="PF('pagoCuotaDialog').show()" 
+                                                 update=":form:dlgPago :form:pnlGridPago" action="#{socioController.prepararPago}">
+                                    <f:setPropertyActionListener value="#{socio}" target="#{socioController.socio}" />
+                                </p:commandButton>
+                            </p:column>
 
+                            <p:rowExpansion>
+                                <div class="orders-subtable">
+                                    <h5>Pagos de socio: #{socio.id}: #{socio.nombre} #{socio.apellido}</h5>
+
+                                </div>
+                            </p:rowExpansion>
+                        </p:dataTable>
+
+
+                        <p:confirmDialog widgetVar="deleteSocioDialog" showEffect="fade" width="300" message="Eliminar el socio?" header="Confirm" severity="warn">
+                            <p:commandButton value="Si" icon="pi pi-check" actionListener="#{socioController.deleteSocio}" process="@this" oncomplete="PF('deleteSocioDialog').hide()"/>
+                            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('deleteSocioDialog').hide()" />
+                        </p:confirmDialog>
+
+                        <p:confirmDialog global="true" showEffect="fade" width="300">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times" />
+                        </p:confirmDialog>
+
+                        <p:dialog header="Detalle socio" showEffect="fade" modal="true" widgetVar="manageSocioDialog" responsive="true">
+                            <p:outputPanel id="manage-socio-content" class="ui-fluid">
+                                <p:outputPanel rendered="#{not empty socioController.socio}">
+                                    <p:graphicImage name="images/product/avatar_2.png" library="demo" styleClass="product-image" rendered="#{not empty crudDemoView.selectedProduct.image}" />
+                                    <div class="grid">
+                                        <div class="col-12 ">
+                                            <div class="card ui-fluid">
+                                                <h5>Socio</h5>
+
+                                                <div class="formgrid grid">
+                                                    <div class="field col">
+                                                        <p:outputLabel for="name1">Nombre</p:outputLabel>
+                                                        <p:inputText id="name1" value="#{socioController.socio.nombre}" />
+                                                    </div>
+                                                    <div class="field col">
+                                                        <p:outputLabel for="apellido1">Apellido</p:outputLabel>
+                                                        <p:inputText id="apellido1" value="#{socioController.socio.apellido}"/>
+                                                    </div>
+
+                                                </div>
+                                                <div class="formgrid grid">
+                                                    <div class="field col">
+                                                        <p:outputLabel for="ci">C.I.</p:outputLabel>
+                                                        <p:inputText id="ci" value="#{socioController.socio.ci}"/>
+                                                    </div>
+                                                    <div class="field col">
+                                                        <p:outputLabel for="fechaNac">Fecha nac.</p:outputLabel>
+                                                        <p:datePicker  id="fechaNac" showIcon="true" value="#{socioController.socio.fechaNacimiento}" />
+                                                    </div>
+                                                </div>
+                                                <div class="formgrid grid">
+                                                    <div class="field col">
+                                                        <p:outputLabel for="fechaIns">Fecha Inscripción</p:outputLabel>
+                                                        <p:datePicker  id="fechaIns" showIcon="true" value="#{socioController.socio.fechaInscripcion}" />
+                                                    </div>
+
+                                                    <div class="field col">
+                                                        <p:outputLabel for="celular">Celular</p:outputLabel>
+                                                        <p:inputText id="celular" value="#{socioController.socio.celular}" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="field">
+                                                    <p:outputLabel for="domicilio1">Domicilio</p:outputLabel>
+                                                    <p:inputText id="domicilio1" value="#{socioController.socio.domicilio}" />
+                                                </div>
+
+
+
+                                                <div class="formgrid grid">
+                                                    <div class="field col">
+                                                        <p:outputLabel for="celularEmerg">Celular Emerg.</p:outputLabel>
+                                                        <p:inputText id="celularEmerg" value="#{socioController.socio.celularEmergencia}"/>
+                                                    </div>
+                                                    <div class="field col">
+                                                        <p:outputLabel for="emergenciaMovil">Emergencia móvil</p:outputLabel>
+                                                        <p:inputText id="emergenciaMovil" value="#{socioController.socio.emergenciaMovil}" />
+                                                    </div>
+
+                                                </div>
+                                                <div class="formgrid grid">
+                                                    <div class="field col">
+                                                        <p:outputLabel for="mutualista">Mutualista</p:outputLabel>
+                                                        <p:inputText id="mutualista" value="#{socioController.socio.mutualista}"/>
+                                                    </div>
+                                                    <div class="field col">
+                                                        <p:outputLabel for="fechaCSalud">Fecha venc. Carnet Salud </p:outputLabel>
+                                                        <p:datePicker  id="fechaCSalud" showIcon="true" value="#{socioController.socio.vencimientoCSalud}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="formgrid grid">
+                                                    <div class="field col">
+                                                        <p:outputLabel for="email">Email</p:outputLabel>
+                                                        <p:inputText id="email" value="#{socioController.socio.email}"/>
+                                                    </div>
+                                                    <div class="field col">
+                                                        <p:outputLabel for="observaciones">Observaciones</p:outputLabel>
+                                                        <p:inputText id="observaciones" value="#{socioController.socio.observaciones}" />
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="formgrid grid">
+                                                    <div class="field col">
+                                                        <p:outputLabel for="selectOneCategoria">Categoria</p:outputLabel>
+                                                        <p:selectOneMenu id="selectOneCategoria" value="#{socioController.socio.categoria}" converter="selectOneMenuConverter">
+                                                            <f:selectItem rendered="#{socioController.socio.categoria == null}" itemLabel="Seleccione Categoría" itemValue="#{null}"></f:selectItem>
+                                                            <f:selectItems value="#{socioController.categorias}" var="categoria" itemLabel="#{categoria.descripcion}" itemValue="#{categoria}" />
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                    <div class="field col">
+                                                        <p:outputLabel for="selectOneCategoria">Tipo cuota</p:outputLabel>
+                                                        <p:selectOneMenu id="selectOneTipoCuota" value="#{socioController.socio.tipoCuota}" converter="selectOneMenuConverter">
+                                                            <f:selectItem rendered="#{socioController.socio.tipoCuota== null}" itemLabel="Seleccione tipo cuota" itemValue="#{null}"></f:selectItem>
+                                                            <f:selectItems value="#{socioController.tipoCuotas}" var="tipoCuota" itemLabel="#{tipoCuota.nombreTipo}" itemValue="#{tipoCuota}" />
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                    <div class="field col">
+                                                        <p:outputLabel for="selectOneEstado">Estado</p:outputLabel>
+                                                        <p:selectOneMenu id="selectOneEstado" value="#{socioController.socio.estado}" converter="selectOneMenuConverter">
+                                                            <f:selectItem rendered="#{socioController.socio.estado== null}" itemLabel="Seleccione estado" itemValue="#{null}"></f:selectItem>
+                                                            <f:selectItems value="#{socioController.estados}" var="estado" itemLabel="#{estado.descripcion}" itemValue="#{estado}" />
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </p:outputPanel>
+                            </p:outputPanel>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Guardar" icon="pi pi-check" actionListener="#{socioController.guardarSocio}" update="manage-socio-content form:dt-socios" process="manage-socio-content @this" />
+                                <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('manageSocioDialog').hide()" class="ui-button-secondary" />
+                            </f:facet>
+                        </p:dialog> 
+
+
+                        <!--  dialogo para pago de cuotas --> 
+
+                        <p:dialog header="Pago cuota socio #{socioController.socio.nombre} #{socioController.socio.apellido} " 
+                                  showEffect="fade" modal="true" widgetVar="pagoCuotaDialog" responsive="true"
+                                  id="dlgPago">
+                            <p:outputPanel id="manage-datosSocio-content" class="ui-fluid">
+                                <p:growl id="msgs" showDetail="false" sticky="false"/>
+                                <p:separator />
+                                <h3>Socio</h3>
+
+                                <p:panelGrid style="margin-top: 20px" id="pnlGridPago">
+
+
+                                    <p:row>
+
+                                        <p:column>
+                                            <p:panelGrid columns="2" >
+                                                <f:facet name="header">
+                                                    Datos del Socio
+                                                    <p:graphicImage 
+                                                        id="dtimgNull"
+                                                        cache="false"
+                                                        rendered="#{socioController.socio.foto == null}" 
+                                                        style="display: block; margin: 0px auto;"
+                                                        url="../../resources/images/persona.png" />
+                                                    <p:graphicImage 
+                                                        id="dtimgEdit"
+                                                        cache="false"
+                                                        rendered="#{socioController.socio.foto != null}" 
+                                                        style="display: block; margin: 0px auto; max-height: 100px;max-width: 100px;" 
+                                                        value="#{socioController.dameFoto}"
+                                                        >
+                                                        <f:param name="idImg" value="#{socio.id}"  />
+                                                    </p:graphicImage>
+
+                                                </f:facet>
+
+                                                <h:outputText value="Nombre:" />
+                                                <h:outputText value="#{socioController.socio.nombre}" />
+
+                                                <h:outputText value="Documento:" />
+                                                <h:outputText value="#{socioController.socio.ci}" />
+
+                                                <h:outputText value="Direccion:" />
+                                                <h:outputText value="#{socioController.socio.domicilio}" />
+
+                                                <h:outputText value="Celular:" />
+                                                <h:outputText value="#{socioController.socio.celular}" />
+
+                                                <h:outputText value="Categoría socio:" />
+                                                <h:outputText value="#{socioController.socio.categoria.descripcion}" />
+
+                                                <h:outputText value="Tipo cuota socio:" />
+                                                <h:outputText value="#{socioController.socio.tipoCuota.nombreTipo}" />
+                                            </p:panelGrid>
+                                        </p:column>
+                                        <p:column style="vertical-align: text-top">
+                                            <p:panelGrid columns="2" id="pnlUltimoPago">
+                                                <f:facet name="header">
+                                                    Último pago :
+                                                </f:facet>
+
+                                                <h:outputText value="Ids:" />
+                                                <h:outputText value="#{socioController.ultimoPago.id}" />
+                                                <h:outputText value="Fecha pago:" />
+                                                <h:outputText value="#{socioController.ultimoPago.fechaPago}" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                                </h:outputText>
+                                                <h:outputText value="Mes:" />
+                                                <h:outputText value="#{socioController.ultimoPago.mes} / #{socioController.ultimoPago.anio}" />
+                                                <h:outputText value="Tipo cuota:" />
+                                                <h:outputText value="#{socioController.ultimoPago.tipoCuota.nombreTipo}" />
+                                                <h:outputText value="Importe cuota:" />
+                                                <h:outputText value="#{socioController.ultimoPago.importe}" />
+                                                <h:outputText value="Cobrador:" />
+                                                <h:outputText value="#{socioController.ultimoPago.usuario.nombre}" />
+                                                <f:facet name="footer">
+                                                    <p:commandButton value="Re-Imprimir" ajax="false" icon="pi pi-print" title="Re-Imprimir" action="#{socioController.reimprimirRecibo}" update="msgs :form:ultimoPago :form:dlgPago" >
+                                                        <f:setPropertyActionListener target="#{socioController.ultimoPago}"  value="#{socioController.ultimoPago}" />
+                                                    </p:commandButton>
+                                                </f:facet>
+
+
+                                            </p:panelGrid>
+
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="2">
+                                            <p:outputPanel id="manage-pagosocio-content" class="ui-fluid">
+                                                <!--                                                <p:outputPanel>-->
+                                                <div class="grid">
+                                                    <div class="col-12 ">
+                                                        <div class="card ui-fluid">
+                                                            <h5>Socio</h5>
+
+                                                            <div class="formgrid grid">
+                                                                <div class="field col">
+                                                                    <p:outputLabel for="importe">Importe</p:outputLabel>
+                                                                    <p:inputText id="importe" value="#{socioController.selectedPago.importe}" />
+                                                                </div>
+                                                                <div class="field col">
+                                                                    <p:outputLabel for="mes">Mes</p:outputLabel>
+                                                                    <p:inputText id="mes" value="#{socioController.selectedPago.mes}" />
+                                                                </div>
+                                                                <div class="field col">
+                                                                    <p:outputLabel for="anio">Año</p:outputLabel>
+                                                                    <p:inputText id="anio" value="#{socioController.selectedPago.anio}" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--</p:outputPanel>-->  
+                                            </p:outputPanel>
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                            </p:outputPanel>
+                            <f:facet name="footer">
+                                <p:commandButton value="Pagar" 
+                                                 icon="pi pi-check" 
+                                                 actionListener="#{socioController.guardarPago}" 
+                                                 update="manage-datosSocio-content form:messages" process="manage-datosSocio-content @this" ajax="true" />
+                                <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('pagoCuotaDialog').hide()" class="ui-button-secondary" />
+                            </f:facet>
+
+
+                        </p:dialog> 
 
                     </div>
-
                 </div>
-
-            </div> 
+            </div>
         </h:form>
+
     </ui:define>
 
 </ui:composition>

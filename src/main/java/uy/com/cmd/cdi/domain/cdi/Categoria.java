@@ -19,21 +19,21 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "categoria")
-class Categoria implements Serializable{
+public class Categoria implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCategoria")
-    private Integer idCategoria;
+    private int idCategoria;
 
     @Column(name = "descripcion")
     private String descripcion;
 
-    public Integer getIdCategoria() {
+    public int getIdCategoria() {
         return idCategoria;
     }
 
-    public void setIdCategoria(Integer idCategoria) {
+    public void setIdCategoria(int idCategoria) {
         this.idCategoria = idCategoria;
     }
 
@@ -48,13 +48,33 @@ class Categoria implements Serializable{
     @Override
     public boolean equals(Object obj) {
 
-        if (Objects.equals(this.idCategoria, ((Categoria) obj).idCategoria)) {
+       if (this == obj) {
             return true;
-        } else {
+        }
+        if (obj == null) {
             return false;
         }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Categoria other = (Categoria) obj;
+        if (this.idCategoria != other.idCategoria) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + this.idCategoria;
+        return hash;
     }
     
+    @Override
+    public String toString() {
+        return "Categoria{" + "idCategoria=" + idCategoria + '}';
+    }
 
     public Categoria() {
     }

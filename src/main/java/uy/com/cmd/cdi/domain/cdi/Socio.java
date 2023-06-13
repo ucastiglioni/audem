@@ -19,7 +19,6 @@ import javax.persistence.Table;
  *
  * @author max
  */
-
 @Entity
 @Table(name = "socio")
 public class Socio implements Serializable {
@@ -31,45 +30,49 @@ public class Socio implements Serializable {
 
     @Column
     private int numeroSocio;
-    
+
     @Column
     private String nombre;
-    
+
     @Column
     private String apellido;
-    
+
     @Column
     private Date fechaInscripcion;
-    
+
     @Column
     private int ci;
-    
+
     @Column
     private Date fechaNacimiento;
-    
+
     @Column
     private String domicilio;
-    
+
     @Column
     private String celular;
-    
+
     @Column
     private String celularEmergencia;
-    
+
     @Column
     private String emergenciaMovil;
-    
+
     @Column
     private String mutualista;
-    
+
     @Column
     private Date vencimientoCSalud;
-    
-    @Column String email;
-    
+
+    @Column
+    String email;
+
     @Column(name = "foto")
     byte[] foto;
-    
+
+    @Column
+    String observaciones;
+
     @ManyToOne
     @JoinColumn(name = "idTipoCuota")
     TipoCuota tipoCuota;
@@ -81,7 +84,7 @@ public class Socio implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idcestado")
     Estado estado;
-    
+
     public int getId() {
         return id;
     }
@@ -185,7 +188,6 @@ public class Socio implements Serializable {
     public void setVencimientoCSalud(Date vencimientoCSalud) {
         this.vencimientoCSalud = vencimientoCSalud;
     }
-   
 
     public byte[] getFoto() {
         return foto;
@@ -202,8 +204,39 @@ public class Socio implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-       
-    
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public TipoCuota getTipoCuota() {
+        return tipoCuota;
+    }
+
+    public void setTipoCuota(TipoCuota tipoCuota) {
+        this.tipoCuota = tipoCuota;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -233,6 +266,5 @@ public class Socio implements Serializable {
     public String toString() {
         return "Socio{" + "id=" + id + '}';
     }
-    
 
 }

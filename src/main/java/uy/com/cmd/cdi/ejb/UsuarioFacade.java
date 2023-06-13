@@ -35,7 +35,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     public Usuario iniciarSesion(Usuario us) {
         Usuario u = null;
         try {
-            String consulta = "from Usuario u where u.nombreUsuario=?1 and u.clave=?2";
+            String consulta = "from Usuario u where u.nombre=?1 and u.clave=?2";
             Query query = em.createQuery(consulta);
             query.setParameter(1, us.getNombre());
             query.setParameter(2, us.getClave());

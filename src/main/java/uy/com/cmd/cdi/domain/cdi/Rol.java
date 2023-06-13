@@ -22,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "rol")
-class Rol implements Serializable{
+public class Rol implements Serializable{
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
      private int id;

@@ -10,7 +10,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import uy.com.cmd.cdi.domain.cdi.Socio;
+import uy.com.cmd.cdi.domain.cdi.Categoria;
+
 
 
 /**
@@ -18,7 +19,7 @@ import uy.com.cmd.cdi.domain.cdi.Socio;
  * @author maxi
  */
 @Stateless
-public class SocioFacade extends AbstractFacade<Socio> implements SocioFacadeLocal {
+public class CategoriaFacade extends AbstractFacade<Categoria> implements CategoriaFacadeLocal {
 
     @PersistenceContext(unitName = "cdiPU")
     private EntityManager em;
@@ -28,25 +29,25 @@ public class SocioFacade extends AbstractFacade<Socio> implements SocioFacadeLoc
         return em;
     }
 
-    public SocioFacade() {
-        super(Socio.class);
+    public CategoriaFacade() {
+        super(Categoria.class);
     }
 
     @Override
-    public Socio findByEmail(String email) {
+    public Categoria findByNombre(String nombre) {
 
-        Socio s = null;
+        Categoria s = null;
         try {
-            String consulta= "from Socio u where u.email=?1";
+            String consulta= "from Categoria u where u.detalle=?1";
             
             Query query = em.createQuery(consulta);
-            query.setParameter(1, email);
-            List<Socio> lista = query.getResultList();
+            query.setParameter(1, nombre);
+            List<Categoria> lista = query.getResultList();
             if (!lista.isEmpty()) {
                 s = lista.get(0);
             }
             if (s != null) {
-                System.out.println(s.getNombre());
+                System.out.println(s.getDescripcion());
                 
             }
         } catch (Exception e) {
@@ -55,6 +56,9 @@ public class SocioFacade extends AbstractFacade<Socio> implements SocioFacadeLoc
         return s;
     }
 
+//    @Override
+//    public Categoria find(int id) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
 
-    
 }
