@@ -108,7 +108,7 @@ public class SocioController implements Serializable {
             return size > 1 ? size + " socios seleccionados" : "1 socio seleccionado";
         }
 
-        return "Delete";
+        return "Eliminar";
     }
 
     public void openNew() {
@@ -276,7 +276,8 @@ public class SocioController implements Serializable {
     public void prepararPago() {
         try {
             ultimoPago=ejbPago.findUltimoPago(socio);
-            if (ultimoPago.getId() == null) {
+            
+            if (ultimoPago == null) {
                 // nunca pagó 
                 ZoneId timeZone = ZoneId.systemDefault();
                 LocalDate fecha = socio.getFechaInscripcion().toInstant().atZone(timeZone).toLocalDate();

@@ -146,15 +146,23 @@ public class PagoFacade extends AbstractFacade<Pago> implements PagoFacadeLocal 
             FilterMeta fMeta;
             MatchMode mMode;
             Object fValue;
+            
             while (fColumns.hasNext()) {
 
                 column = fColumns.next();
                 fMeta = filters.get(column);
+                fValue=fMeta.getFilterValue();
                 mMode = fMeta.getMatchMode();
-               
-                sql += " and ent." + column + mapMatchModeToJPAOperator(mMode) + ":" + column + " ";
+               if(column.equals("socio.id")){
+                   sql += " and ent." + column + mapMatchModeToJPAOperator(mMode) + fValue;
+               }else{
+                   sql += " and ent." + column + mapMatchModeToJPAOperator(mMode) + ":" + column + " ";
+               }
+                
+                
             }
         }
+         
         return sql;
     }// of buildWhereParams()
 
@@ -193,26 +201,7 @@ public class PagoFacade extends AbstractFacade<Pago> implements PagoFacadeLocal 
         return " = ";
     }
 
-//    protected TypedQuery setWhereParams(TypedQuery query, Map<String, FilterMeta> filters) {
-//        if ((filters != null) && !filters.isEmpty()) {
-//            Iterator<String> fColumns = filters.keySet().iterator();
-//            String column;
-//            FilterMeta fMeta;
-//            MatchMode mMode;
-//            Object fValue;
-//            while (fColumns.hasNext()) {
-//                column = fColumns.next();
-//                fMeta = filters.get(column);
-//                mMode = fMeta.getMatchMode();
-//                fValue = fMeta.getFilterValue();
-//                query.setParameter(column, column.equalsIgnoreCase("mtcn") ? buildParamValue(Integer.parseInt(fValue.toString()), mMode) : buildParamValue(fValue, mMode));
-//                System.out.println("***************");
-//                System.out.println(query);
-//                System.out.println("***************");
-//            }
-//        }
-//        return query;
-//    }
+
     protected TypedQuery setWhereParams(TypedQuery query, Map<String, FilterMeta> filters) {
             if ((filters != null) && !filters.isEmpty()) {
             Iterator<String> fColumns = filters.keySet().iterator();
@@ -236,12 +225,12 @@ public class PagoFacade extends AbstractFacade<Pago> implements PagoFacadeLocal 
                     case "id":
                         query.setParameter(column, buildParamValue(Integer.valueOf(fValue.toString()), mMode));
                         break;
-                    case "socio": 
-                        query.setParameter(column, buildParamValue(fValue, mMode));
-                        System.out.println("***************");
-                        System.out.println(query.toString());
-                        System.out.println("***************");
-                        break;
+//                    case "socio.id": 
+//                        query.setParameter(column, buildParamValue(fValue, mMode));
+//                        System.out.println("***************");
+//                        System.out.println(query.toString());
+//                        System.out.println("***************");
+//                        break;
                     case "mes":
                         query.setParameter(column, buildParamValue(Integer.valueOf(fValue.toString()), mMode));
                         break;

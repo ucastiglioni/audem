@@ -13,18 +13,19 @@
 
     <ui:define name="content">
         <h:form id="form">
-
+            <p:growl id="messages" showDetail="true" />
             <div class="grid">
                 <div class="col-12">
                     <div class="card">
                         <h5>Pagos </h5>
-                        <p>Pagination, sorting, filtering and checkbox selection.</p>
-                        <p:dataTable widgetVar="pagosDT" 
-                                     id="tblPagos"
+                        <p>Pagos de clientes.</p>
+
+                        <p:dataTable id="tblPagos"
+                                     widgetVar="pagosDT" 
                                      var="pago" 
-                                     value="#{pagoController.pagosDataModel}" reflow="true"
+                                     value="#{pagoController.pagosDataModel}" reflow="true" styleClass="products-table"
                                      selection="#{pagoController.selectedPagos}" rowKey="#{pago.id}" 
-                                     paginator="true" rows="10" paginatorPosition="bottom" rowSelectMode="add" lazy="true">
+                                     paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" lazy="true">
                             <f:facet name="header">
                                 <div class="pagos-table-header">
                                     <span style="font-weight: bold">PAGOS</span>
@@ -36,20 +37,20 @@
                             </p:column>
 
                             <p:column headerText="Socio" sortBy="#{pago.socio}" filterBy="#{pago.socio.id}" filterMatchMode="exact">
-                                    <f:facet name="filter">
-                                        <p:selectOneMenu onchange="PF('pagosDT').filter()" style="width:95%">
-                                            <f:selectItem itemLabel="Seleccione valor" itemValue="#{null}" noSelectionOption="true" />
-                                            <f:selectItems value="#{pagoController.socios}" var="socio" itemLabel="#{socio.apellido} #{socio.nombre}" 
-                                                           itemValue="#{socio}"/>
-                                        </p:selectOneMenu>
-                                    </f:facet>
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('pagosDT').filter()" style="width:95%">
+                                        <f:selectItem itemLabel="Seleccione valor" itemValue="#{null}" noSelectionOption="true" />
+                                        <f:selectItems value="#{pagoController.socios}" var="socio" itemLabel="#{socio.apellido} #{socio.nombre}" 
+                                                       itemValue="#{socio.id}"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
                                 <h:outputText value="#{pago.socio.nombre}#{pago.socio.apellido}" />
-                                </p:column>
-                                <!--<p:graphicImage name="images/avatar/{pago.representative.image}" library="demo" width="32" style="vertical-align: middle" />-->
-                                <p:graphicImage name="images/avatar/avatar?4.png" library="demo" width="32" style="vertical-align: middle" />
-                                <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{pago.socio.nombre} #{pago.socio.apellido}" />
+                            </p:column>
+                            <!--<p:graphicImage name="images/avatar/{pago.representative.image}" library="demo" width="32" style="vertical-align: middle" />-->
+                            <p:graphicImage name="images/avatar/avatar?4.png" library="demo" width="32" style="vertical-align: middle" />
+                            <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{pago.socio.nombre} #{pago.socio.apellido}" />
 
-                                <p:column headerText="mes" sortBy="#{pago.mes}" filterBy="#{pago.mes}" filterMatchMode="exact">
+                            <p:column headerText="mes" sortBy="#{pago.mes}" filterBy="#{pago.mes}" filterMatchMode="exact">
                                 <h:outputText value="#{pago.mes}" />
                             </p:column>
                             <p:column headerText="año" sortBy="#{pago.anio}" filterBy="#{pago.anio}" filterMatchMode="exact">
@@ -57,11 +58,56 @@
                             </p:column>
                             <p:column style="width: 8rem; text-align: center;">
                                 <p:button icon="pi pi-cog" styleClass="ui-button-secondary" />
+                                <!--</p:column>-->
+
+                                <p:commandButton icon="pi pi-trash" styleClass="ui-button-warning" 
+                                                 oncomplete="PF('deletePagoDialog').show()" 
+                                                 update=":frmDeletePago:dlgDeletePago"
+                                                 process="@this" >
+                                    <!--<f:setPropertyActionListener value="#{pago}" target="#{pagoController.selectedPago}" />-->
+                                    <f:setPropertyActionListener  target="#{pagoController.selectedPago}" value="#{pago}"  />
+                                </p:commandButton>
                             </p:column>
                         </p:dataTable>
+
                     </div>
                 </div>
             </div>
+
+        </h:form>
+        <h:form id="frmDeletePago">
+            <p:confirmDialog 
+                id= "dlgDeletePago"
+                widgetVar="deletePagoDialog" 
+                showEffect="fade" 
+                message="Eliminar el pago #{pagoController.selectedPago.id}?"
+                header="Confirm" severity="warn">
+                <p:outputPanel id="pnlDeletePago">
+                    <p:panelGrid columns="2" id="pnlGridDeletePago">
+
+                        <f:facet name="header">
+                            Datos del Pago
+
+                        </f:facet>
+
+                        <h:outputText value="Id" />
+                        <h:outputText value="#{pagoController.selectedPago.id}" />
+                        <h:outputText value="Nombre" />
+                        <h:outputText value="#{pagoController.selectedPago.socio.apellido}, #{pagoController.selectedPago.socio.nombre}" />
+                        <h:outputText value="Mes" />
+                        <h:outputText value="#{pagoController.selectedPago.mes}" />
+                        <h:outputText value="Año" />
+                        <h:outputText value="#{pagoController.selectedPago.anio}" />
+                        <h:outputText value="Importe" />
+                        <h:outputText value="#{pagoController.selectedPago.importe}" />
+
+                    </p:panelGrid>
+                </p:outputPanel>
+
+                <p:commandButton value="Si" icon="pi pi-check" actionListener="#{pagoController.deletePago}"
+                                 process="@this" oncomplete="PF('deletePagoDialog').hide()"/>
+                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('deletePagoDialog').hide()" />
+            </p:confirmDialog>
         </h:form>
 
     </ui:define>

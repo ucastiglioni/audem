@@ -22,11 +22,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "socio")
 public class Socio implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column
     private int numeroSocio;
@@ -85,11 +86,11 @@ public class Socio implements Serializable {
     @JoinColumn(name = "idcestado")
     Estado estado;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -262,9 +263,9 @@ public class Socio implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Socio{" + "id=" + id + '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Socio{" + "id=" + id + '}';
+//    }
 
 }

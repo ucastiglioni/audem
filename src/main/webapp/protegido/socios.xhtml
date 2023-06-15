@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
 
-    <ui:define name="title">Crud</ui:define>
+    <ui:define name="title">Socios</ui:define>
 
     <ui:define name="content">
         <h:form id="form">
@@ -16,7 +16,7 @@
 
                         <p:toolbar styleClass="mb-4">
                             <p:toolbarGroup>
-                                <p:commandButton value="New" icon="pi pi-plus" actionListener="#{socioController.openNew}" 
+                                <p:commandButton value="Nuevo" icon="pi pi-plus" actionListener="#{socioController.openNew}" 
                                                  update="manage-socio-content" oncomplete="PF('manageSocioDialog').show()" 
                                                  styleClass="ui-button-success" style="margin-right: .5rem" />
                                 <p:commandButton id="delete-socios-button" value="#{socioController.deleteButtonMessage}" icon="pi pi-trash" actionListener="#{socioController.deleteSelectedSocios}" 
@@ -26,7 +26,7 @@
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right">
                                 <!--<p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download"/>-->
-                                <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
+                                <p:commandButton value="Exportar" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
                                     <p:dataExporter type="pdf" target="dt-socios" fileName="socios"/>
                                 </p:commandButton>
                             </p:toolbarGroup>

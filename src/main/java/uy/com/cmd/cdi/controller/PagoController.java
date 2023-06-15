@@ -10,6 +10,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.LazyDataModel;
 import uy.com.cmd.cdi.domain.cdi.Pago;
 import uy.com.cmd.cdi.domain.cdi.Socio;
@@ -40,6 +43,7 @@ public class PagoController implements Serializable {
     @PostConstruct
     public void init() {
         socios=ejbSocio.findAll();
+        selectedPago=new Pago();
         this.pagosDataModel = new LazyDataModel<Pago>() {
 
             private static final long serialVersionUID = 1L;
@@ -117,6 +121,15 @@ public class PagoController implements Serializable {
         this.socios = socios;
     }
     
-
+    public void deletePago(){
+        
+        ejbPago.remove(this.selectedPago);
+        this.selectedPago = null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pago eliminado OK !"));
+        PrimeFaces.current().ajax().update("form:messages", "form:tblPagos");
+    }
+ 
+    
+    
     
 }
