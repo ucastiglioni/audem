@@ -26,6 +26,7 @@ CREATE TABLE `audits_socio` (
   `idsocio` int(11) NOT NULL DEFAULT 0,
   `nrosocio` int(11) DEFAULT NULL,
   `nombre` varchar(200) DEFAULT NULL,
+  `apellido` varchar(200) DEFAULT NULL,
   `fechanac` datetime DEFAULT NULL,
   `fechaingreso` datetime DEFAULT NULL,
   `medica` varchar(45) DEFAULT NULL,
@@ -42,7 +43,8 @@ CREATE TABLE `audits_socio` (
   `fechaGrabado` timestamp NOT NULL DEFAULT current_timestamp(),
   `operacion` varchar(20) DEFAULT NULL,
   `idUsuario` int(11) DEFAULT NULL,
-  `fechaGrabado_automatico` timestamp NOT NULL DEFAULT current_timestamp()
+  `fechaGrabado_automatico` timestamp NOT NULL DEFAULT current_timestamp(),
+  `audits_sociocol` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -327,7 +329,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `sociosview` AS select `socio`.`id` AS `idsocio`,`socio`.`NUMEROSOCIO` AS `numerosocio`,`socio`.`NOMBRE` AS `nombre`,`socio`.`idTipoCuota` AS `idtipocuota`,`socio`.`idCategoria` AS `idcategoria`,`socio`.`idcestado` AS `idcestado`,`socio`.`FECHAINSCRIPCION` AS `fechaGrabado` from `socio` union select `audits_socio`.`idsocio` AS `idsocio`,`audits_socio`.`nrosocio` AS `nrosocio`,`audits_socio`.`nombre` AS `nombre`,`audits_socio`.`idTipoCuota` AS `idtipocuota`,`audits_socio`.`idcategoria` AS `idcategoria`,`audits_socio`.`idcestado` AS `idcestado`,`audits_socio`.`fechaGrabado` AS `fechaGrabado` from `audits_socio` where `audits_socio`.`operacion` = 'M' */;
+/*!50001 VIEW `sociosview` AS select `socio`.`id` AS `idsocio`,`socio`.`NUMEROSOCIO` AS `numerosocio`,concat(`socio`.`NOMBRE`,' ',`socio`.`APELLIDO`) AS `nombre`,`socio`.`idTipoCuota` AS `idtipocuota`,`socio`.`idCategoria` AS `idcategoria`,`socio`.`idcestado` AS `idcestado`,`socio`.`FECHAINSCRIPCION` AS `fechaGrabado` from `socio` union select `audits_socio`.`idsocio` AS `idsocio`,`audits_socio`.`nrosocio` AS `nrosocio`,concat(`audits_socio`.`nombre`,' ',`audits_socio`.`apellido`) AS `nombre`,`audits_socio`.`idTipoCuota` AS `idtipocuota`,`audits_socio`.`idcategoria` AS `idcategoria`,`audits_socio`.`idcestado` AS `idcestado`,`audits_socio`.`fechaGrabado` AS `fechaGrabado` from `audits_socio` where `audits_socio`.`operacion` = 'M' */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -341,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-21 18:39:36
+-- Dump completed on 2023-06-21 19:01:26
