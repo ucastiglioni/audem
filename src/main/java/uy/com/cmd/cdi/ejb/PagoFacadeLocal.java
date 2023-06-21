@@ -28,7 +28,9 @@ public interface PagoFacadeLocal {
     void edit(Pago pago);
     void remove(Pago pago);
     List<Pago> findAll();
+    Pago find(Object id);
     List<Pago> findRange(int[] range);
+    
     
 
     int count();

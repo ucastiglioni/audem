@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteReciboCdi" pageWidth="220" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="180" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="857a3600-3971-4dbe-b5a2-4345bc94c2cf">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="563"/>
+	<parameter name="idPago" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="via" class="java.lang.String"/>
+	<parameter name="p_nombre" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_numerosocio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_categoria" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_ci" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_fechaingreso" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_mes" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_anio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_funcionario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_fechapago" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_importe" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_logo" class="java.io.InputStream"/>
+	<background>
+		<band height="83" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="329">
+			<staticText>
+				<reportElement x="5" y="156" width="63" height="13" uuid="c43761bc-1740-4799-8483-d883cc740d6c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="169" width="63" height="13" uuid="2ace614a-a2d4-4d65-9384-e862d7adc2e5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº socio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="221" width="63" height="13" uuid="c2cdf0f4-6a16-45a0-8dbf-5b5882846e5d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="234" width="63" height="13" uuid="575060ad-4640-476e-8b18-4be0612c8533"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Año:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="268" width="63" height="13" uuid="281e4cea-fa72-4b9d-b8e3-86588a71817c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="182" width="63" height="13" uuid="52475980-efdc-4086-a076-b9d654e38f6a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoría:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="195" width="63" height="13" uuid="1828a5c4-4ad3-4314-b916-534d76c7788b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.I.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="208" width="63" height="13" uuid="d0c1c1c1-b27d-4af1-ab70-40c23f81c9fd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha ing.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="43" y="294" width="63" height="11" uuid="56b9cf03-062d-4996-80e6-ef97d6a200c4"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Funcionario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="89" width="143" height="16" uuid="444a2bf8-aab4-44ea-80f4-39679ee88c2b"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CENTRO DEPORTIVO INTEGRAL ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="105" width="143" height="16" uuid="305554a5-c2c1-417d-b6d1-a78a82f890ea"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Cooperativa ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="132" width="71" height="13" uuid="99c44e1a-7b29-4d04-ac7d-7f3bf7e94a59"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECIBO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="328" width="178" height="1" uuid="adf8147e-164f-4b33-be4a-029ee081e291"/>
+			</line>
+			<staticText>
+				<reportElement x="49" y="306" width="57" height="11" uuid="ae559a2f-a88b-4ecd-b0fb-774811204b27"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha pago:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="121" y="317" width="59" height="11" uuid="d0dd3a5f-763a-40f4-b56e-7807630d1214"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{via}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="155" width="100" height="13" uuid="45e6fd8d-ff9d-47ac-9c2d-cb6c030b1ae0"/>
+				<textFieldExpression><![CDATA[$P{p_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="168" width="100" height="14" uuid="21a2fc55-7984-4ed4-8cb0-7c3e51cfb2cf"/>
+				<textFieldExpression><![CDATA[$P{p_numerosocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="182" width="100" height="13" uuid="d2f7fbb8-2735-48cd-9df8-db02d989a6a5"/>
+				<textFieldExpression><![CDATA[$P{p_categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="195" width="91" height="13" uuid="0650cc9f-9468-4d13-9b2b-f7c1d6a2b1f4"/>
+				<textFieldExpression><![CDATA[$P{p_ci}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="208" width="100" height="13" uuid="5463ba55-9d3b-4c52-a33b-d755b1f64817"/>
+				<textFieldExpression><![CDATA[$P{p_fechaingreso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="220" width="100" height="14" uuid="a405d30b-80fd-4dec-9cf5-02acfd4b98ae"/>
+				<textFieldExpression><![CDATA[$P{p_mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="234" width="100" height="13" uuid="0b81aa0d-2e95-48f8-8911-57b0358f5111"/>
+				<textFieldExpression><![CDATA[$P{p_anio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="268" width="100" height="13" uuid="40eae071-f45a-47a9-b80c-1473bde0fb3c"/>
+				<textFieldExpression><![CDATA[$P{p_importe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="293" width="73" height="11" uuid="ededec62-b7fb-4b80-927c-27a53bea94be"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_funcionario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="305" width="73" height="12" uuid="1bc30ff2-a56a-472b-8f98-18d4543d775b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_fechapago}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="55" y="10" width="45" height="40" uuid="6be33de6-bc8e-4c94-9324-874071846bd0"/>
+				<imageExpression><![CDATA[$P{p_logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

@@ -22,9 +22,9 @@ public class PagoAdeudos implements Serializable{
     private Integer anio;
     private Integer mes;
     
-    private Integer idmedioPago;
-    private String  descMedioPagoSocio;
-    private String  descMedioPagoPago;
+//    private Integer idmedioPago;
+//    private String  descMedioPagoSocio;
+//    private String  descMedioPagoPago;
 
     private Integer idusuario;
     private String  nombreusuario;
@@ -120,13 +120,13 @@ public class PagoAdeudos implements Serializable{
         this.mes = mes;
     }
 
-    public Integer getIdmedioPago() {
-        return idmedioPago;
-    }
-
-    public void setIdmedioPago(Integer idmedioPago) {
-        this.idmedioPago = idmedioPago;
-    }
+//    public Integer getIdmedioPago() {
+//        return idmedioPago;
+//    }
+//
+//    public void setIdmedioPago(Integer idmedioPago) {
+//        this.idmedioPago = idmedioPago;
+//    }
 
     public Integer getIdusuario() {
         return idusuario;
@@ -168,21 +168,21 @@ public class PagoAdeudos implements Serializable{
         this.nombre = nombre;
     }
 
-    public String getDescMedioPagoSocio() {
-        return descMedioPagoSocio;
-    }
-
-    public void setDescMedioPagoSocio(String descMedioPagoSocio) {
-        this.descMedioPagoSocio = descMedioPagoSocio;
-    }
-
-    public String getDescMedioPagoPago() {
-        return descMedioPagoPago;
-    }
-
-    public void setDescMedioPagoPago(String descMedioPagoPago) {
-        this.descMedioPagoPago = descMedioPagoPago;
-    }
+//    public String getDescMedioPagoSocio() {
+//        return descMedioPagoSocio;
+//    }
+//
+//    public void setDescMedioPagoSocio(String descMedioPagoSocio) {
+//        this.descMedioPagoSocio = descMedioPagoSocio;
+//    }
+//
+//    public String getDescMedioPagoPago() {
+//        return descMedioPagoPago;
+//    }
+//
+//    public void setDescMedioPagoPago(String descMedioPagoPago) {
+//        this.descMedioPagoPago = descMedioPagoPago;
+//    }
 
     public Integer getImporteCuota() {
         return importeCuota;

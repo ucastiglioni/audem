@@ -19,6 +19,17 @@
                     <div class="card">
                         <h5>Pagos </h5>
                         <p>Pagos de clientes.</p>
+                        <p:toolbar styleClass="mb-4">
+                            <p:toolbarGroup align="right">
+                                <!--<p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download"/>-->
+                                <p:commandButton value="PDF" icon="pi pi-download" styleClass="ui-button-help" ajax="false">
+                                    <p:dataExporter type="pdf" target="tblPagos" fileName="pagos"/>
+                                </p:commandButton>
+                                <p:commandButton value="Excel" icon="pi pi-download" styleClass="ui-button-help" ajax="false">
+                                    <p:dataExporter type="xlsx" target="tblPagos" fileName="pagos"/>
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
 
                         <p:dataTable id="tblPagos"
                                      widgetVar="pagosDT" 
@@ -56,15 +67,32 @@
                             <p:column headerText="año" sortBy="#{pago.anio}" filterBy="#{pago.anio}" filterMatchMode="exact">
                                 <h:outputText value="#{pago.anio}" />
                             </p:column>
-                            <p:column style="width: 8rem; text-align: center;">
-                                <p:button icon="pi pi-cog" styleClass="ui-button-secondary" />
+                            <p:column headerText="importe" sortBy="#{pago.importe}" filterBy="#{pago.importe}" filterMatchMode="exact">
+                                <h:outputText value="#{pago.importe}" />
+                            </p:column>
+                            <p:column style="width: 8rem; text-align: center;" exportable="false">
+                                <p:commandButton icon="pi pi-print" 
+                                                 update=":frmEditPago:manage-pago-content"
+                                                 oncomplete="PF('managePagoDialog').show()"
+                                                 styleClass="edit-button rounded-button ui-button-success" 
+                                                 process="@this">
+                                    <f:setPropertyActionListener value="#{pago}" target="#{pagoController.selectedPago}" />
+
+                                </p:commandButton>
+                                <p:commandButton icon="pi pi-pencil" 
+                                                 update=":frmEditPago:manage-pago-content"
+                                                 oncomplete="PF('managePagoDialog').show()" 
+                                                 styleClass="edit-button rounded-button ui-button-success" 
+                                                 process="@this">
+                                    <f:setPropertyActionListener value="#{pago}" target="#{pagoController.selectedPago}" />
+                                </p:commandButton>
+
                                 <!--</p:column>-->
 
                                 <p:commandButton icon="pi pi-trash" styleClass="ui-button-warning" 
                                                  oncomplete="PF('deletePagoDialog').show()" 
                                                  update=":frmDeletePago:dlgDeletePago"
                                                  process="@this" >
-                                    <!--<f:setPropertyActionListener value="#{pago}" target="#{pagoController.selectedPago}" />-->
                                     <f:setPropertyActionListener  target="#{pagoController.selectedPago}" value="#{pago}"  />
                                 </p:commandButton>
                             </p:column>
@@ -73,6 +101,55 @@
                     </div>
                 </div>
             </div>
+
+        </h:form>
+        <h:form id="frmEditPago">
+            <p:dialog 
+                showEffect="fade"
+                modal="true"
+                widgetVar="managePagoDialog" 
+                responsive="true"
+                dynamic="false" 
+                >
+
+
+                <p:outputPanel id="manage-pago-content">
+
+                    <p:panelGrid columns="2" id="pnlGridEditPago">
+
+
+                        <f:facet name="header">
+
+                            Datos del Pago
+                            <!--<p:commandButton value="Print" type="button" icon="pi pi-print" style="margin-bottom: 2rem" onclick="window.print()"></p:commandButton>-->
+
+                        </f:facet>
+
+                        <h:outputText value="Id" />
+                        <h:outputText value="#{pagoController.selectedPago.id}" />
+                        <h:outputText value="Nombre" />
+                        <h:outputText value="#{pagoController.selectedPago.socio.apellido}, #{pagoController.selectedPago.socio.nombre}" />
+                        <h:outputText value="Mes" />
+                        <p:inputNumber value="#{pagoController.selectedPago.mes}" minValue="1" maxValue="12"/>
+                        <h:outputText value="Año" />
+                        <p:inputText value="#{pagoController.selectedPago.anio}" maxlength="4" />
+                        <h:outputText value="Importe" />
+                        <p:inputText value="#{pagoController.selectedPago.importe}" />
+                        <f:facet name="footer" >
+                            <p:commandButton value="Imprimir" icon="pi pi-print" styleClass="shadow-1 mb-3 mr-2"
+                                             ajax="false" actionListener="#{pagoController.imprimirPago}" update="form:messages">
+
+                                <f:setPropertyActionListener target="#{pagoController.selectedPago}"  value="#{pagoController.selectedPago}" />
+                            </p:commandButton>
+                            <p:commandButton value="Guardara" icon="pi pi-check" actionListener="#{pagoController.modificarPago}"
+                                             process="manage-pago-content @this" oncomplete="PF('deletePagoDialog').hide()" update="manage-pago-content form:messages form:tblPagos"/>
+                            <p:commandButton value="Cancelar" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('managePagoDialog').hide()" />
+                        </f:facet> 
+                    </p:panelGrid>
+                </p:outputPanel>
+
+
+            </p:dialog>
 
         </h:form>
         <h:form id="frmDeletePago">
@@ -100,13 +177,16 @@
                         <h:outputText value="#{pagoController.selectedPago.anio}" />
                         <h:outputText value="Importe" />
                         <h:outputText value="#{pagoController.selectedPago.importe}" />
+                        <f:facet name="footer">
+                            <p:commandButton value="Si" icon="pi pi-check" actionListener="#{pagoController.deletePago}"
+                                             process="@this" oncomplete="PF('deletePagoDialog').hide()"/>
+                            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('deletePagoDialog').hide()" />    
+                        </f:facet>
 
                     </p:panelGrid>
                 </p:outputPanel>
 
-                <p:commandButton value="Si" icon="pi pi-check" actionListener="#{pagoController.deletePago}"
-                                 process="@this" oncomplete="PF('deletePagoDialog').hide()"/>
-                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('deletePagoDialog').hide()" />
+
             </p:confirmDialog>
         </h:form>
 

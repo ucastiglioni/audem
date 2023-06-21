@@ -105,12 +105,13 @@ public class PagoFacade extends AbstractFacade<Pago> implements PagoFacadeLocal 
         boolean yaPagoEsteMes = false;
         List<Pago> pagosSocio;
         try {
-            String consulta = "from Pago p where p.socio=?1 and p.mes=?2 and p.anio=?3";
+            String consulta = "from Pago p where p.socio=?1 and p.mes=?2 and p.anio=?3 and p.importe=?4" ;
 
             Query query = em.createQuery(consulta);
             query.setParameter(1, selectedPago.getSocio());
             query.setParameter(2, selectedPago.getMes());
             query.setParameter(3, selectedPago.getAnio());
+            query.setParameter(4, selectedPago.getImporte());
             pagosSocio = query.getResultList();
             if (!pagosSocio.isEmpty()) {
                 yaPagoEsteMes = true;
@@ -237,6 +238,9 @@ public class PagoFacade extends AbstractFacade<Pago> implements PagoFacadeLocal 
                     case "anio":
                         query.setParameter(column, buildParamValue(Integer.valueOf(fValue.toString()), mMode));
                         break;
+                    case "importe":
+                        query.setParameter(column, buildParamValue(Integer.valueOf(fValue.toString()), mMode));
+                        break;
                 }
 
                 //query.setParameter(column, buildParamValue(fValue,mMode));
@@ -296,4 +300,6 @@ public class PagoFacade extends AbstractFacade<Pago> implements PagoFacadeLocal 
         result = query.getResultList();
         return result;
     }
+
+    
 }

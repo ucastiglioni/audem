@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteReciboCdi" pageWidth="220" pageHeight="400" whenNoDataType="AllSectionsNoDetail" columnWidth="180" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="857a3600-3971-4dbe-b5a2-4345bc94c2cf">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="563"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="idPago" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="via" class="java.lang.String"/>
+	<parameter name="p_nombre" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_numerosocio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_categoria" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_ci" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_fechaingreso" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_mes" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_anio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_funcionario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_fechapago" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_importe" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_logo" class="java.io.InputStream"/>
+	<parameter name="p_fondo" class="java.io.InputStream"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band height="252" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<staticText>
+				<reportElement x="1" y="200" width="178" height="40" forecolor="rgba(209, 203, 203, 0.3647059)" uuid="a7c898db-a0f1-4d72-8130-bfa2c3b51a42"/>
+				<textElement textAlignment="Center" rotation="None">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Centro deportivo integral]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="160" width="172" height="40" forecolor="rgba(209, 203, 203, 0.3647059)" uuid="c6f86833-68c0-4767-a843-ad4a64301fd1"/>
+				<textElement textAlignment="Center" rotation="None">
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C. D. I]]></text>
+			</staticText>
+		</band>
+	</background>
+	<title>
+		<band height="349">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="15" y="83" width="143" height="16" uuid="444a2bf8-aab4-44ea-80f4-39679ee88c2b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CENTRO DEPORTIVO INTEGRAL ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="99" width="143" height="16" uuid="305554a5-c2c1-417d-b6d1-a78a82f890ea"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[CDI mesa 3 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="165" width="63" height="13" uuid="547a84c5-ea86-4b8e-9e09-433ab64e604d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="178" width="63" height="13" uuid="fa0fdd11-2a6a-4335-91fb-2cff60303234"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº socio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="230" width="63" height="13" uuid="b014d020-c672-454e-b96a-1ea22013bba9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="243" width="63" height="13" uuid="ea07977c-9023-4bf7-86d4-3e4dc5996d2c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Año:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="277" width="63" height="13" uuid="48af4371-8aef-433e-b1b0-1825169cf7b9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="191" width="63" height="13" uuid="b68a580d-d912-4a5a-a276-e4fe8e25868b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoría:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="204" width="63" height="13" uuid="6f828bfb-0e97-4414-bba8-7bd055e40838"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.I.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="217" width="63" height="13" uuid="47fd1ff7-d05d-4c93-8514-e7e8271bb1b1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha ing.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="307" width="63" height="11" uuid="c5d6c01f-fccd-4231-bc78-8e203af65645"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Funcionario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="141" width="71" height="13" uuid="8fcfa3c1-1e87-41d2-95bc-1e5eb8a2e9d9"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[RECIBO Nº]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="345" width="178" height="1" uuid="7f046046-f820-4feb-816e-90453ff81d79"/>
+			</line>
+			<staticText>
+				<reportElement x="40" y="319" width="57" height="11" uuid="5f6d5350-869d-4686-bc5a-414b0288d225"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha pago:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="71" y="164" width="100" height="13" uuid="e9920f26-10b6-45a3-8c78-3f946dfa419b"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="177" width="100" height="14" uuid="98ee0b03-61d7-46d1-8031-fd67f470e28d"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_numerosocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="191" width="100" height="13" uuid="a690251e-5a28-48b3-8bca-abac26de736b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="204" width="91" height="13" uuid="21ffdf70-50f7-4eab-ab89-ee4221f4508f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_ci}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="217" width="100" height="13" uuid="f1f0bf9f-2966-4016-a391-d0b046c1e704"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_fechaingreso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="229" width="100" height="14" uuid="b8229d1f-3280-42c5-bb32-3f35b98e4b1b"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="243" width="100" height="13" uuid="e505e364-cfb8-4d54-b08a-4b0f82bc51d7"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_anio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="277" width="100" height="13" uuid="009bc855-fbd3-4df1-ac72-053a998ca8da"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{p_importe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="98" y="306" width="73" height="11" uuid="3d9a988c-2fa8-4fc2-9be0-99ea6424097d"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_funcionario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="98" y="318" width="73" height="12" uuid="bd546859-7e0a-4aae-bd3d-285b05a45354"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_fechapago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="141" width="95" height="13" uuid="62c60615-f27e-4f5f-97e3-67685ba14917"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{idPago}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="62" y="0" width="70" height="70" uuid="228a153d-8bc2-4222-a3e0-becca0cf047d"/>
+				<imageExpression><![CDATA[$P{p_logo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="15" y="112" width="143" height="16" uuid="c3812d59-d8ca-4bde-998d-8660a814dcf2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[J.B. y Ordoñez 6494 portón 4 / 268
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="122" width="143" height="16" uuid="ccf2794e-6c43-4477-bdcd-93e07ac35cff"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Tel: 092895483]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

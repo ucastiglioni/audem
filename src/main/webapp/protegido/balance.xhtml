@@ -1,0 +1,150 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <h:outputStylesheet name="css/flags/flags.css" library="demo" />
+    </ui:define>
+
+    <ui:define name="title">Pagos</ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="formDataTable">
+            <h:panelGrid id="pnlBalance" columns="3">
+                <h:outputText value="Desde:" />
+                
+                <p:outputLabel for="pickerMonth" value="Escoja mes/año"/>
+                <p:datePicker id="pickerMonth" view="month" value="#{balanceController.filtro}" 
+                              pattern="MM/yyyy" yearNavigator="true" yearRange="2020:2050" >
+                    <p:ajax listener="#{balanceController.refreshBalance}" update="balance"/>
+                </p:datePicker>
+                
+<!--                
+                <p:calendar id="dateFrom1" 
+                            value="{balanceController.filtro}" 
+                            locale="es"
+                            styleClass="customCalendar" 
+                            effect="slideDown" 
+                            navigator="true" 
+                            mode="inline"  
+
+                            />
+                <p:commandButton id="btnConsultar" value="Consultar" update="balance" actionListener="{balanceController.refreshBalance}" onclick="regenererCal()"/>-->
+            </h:panelGrid>
+
+
+            <p:dataTable id="balance" 
+                         var="balance" 
+                         value="#{balanceController.balances}"
+                         rowKey="#{balance.cuenta}">  
+                <f:facet name="header">
+                    Balance Informativo
+                </f:facet>
+                <p:column style="width:16px">
+                    <p:rowToggler />
+                </p:column>
+                <p:column headerText="item">
+                    <h:outputText value="#{balance.cuenta}" />
+                </p:column>
+                <p:column headerText="Importe">
+                    <h:outputText value="#{balance.importe}">
+                        <!--<h:outputText value="1000">-->
+                        <f:convertNumber pattern="###,###" />
+                    </h:outputText>                     
+                </p:column>
+
+                <p:ajax event="rowToggle" listener="#{balanceController.onRowToggle}" >
+
+                </p:ajax>
+
+                <p:rowExpansion>
+
+                    <p:panelGrid columns="3">
+                        <p:dataTable    id="adeudos" 
+                                        value="#{balance.pagoAdeudos}" 
+                                        paginator="true" rows="10" paginatorPosition="bottom"
+                                        paginatorTemplate="{Exporters} {RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        rowsPerPageTemplate="5,10,15" 
+                                        var="adeudos">  
+
+                            <f:facet name="header">Balance</f:facet>
+                            <f:facet name="{Exporters}">
+                                <div style="float:right">
+                                    <h:commandLink>
+                                        <p:graphicImage url="../../resources/images/exportar/excel.png" width="20" />
+                                        <p:dataExporter type="xls" target="adeudos" fileName="ultimosPagos" />
+                                    </h:commandLink>
+
+                                    <h:commandLink>
+                                        <p:graphicImage url="../../resources/images/exportar/pdf.png" width="20"  />
+                                        <p:dataExporter type="pdf" target="adeudos" fileName="ultimosPagos" />
+                                    </h:commandLink>
+
+                                    <h:commandLink>
+                                        <p:graphicImage url="../../resources/images/exportar/csv.png" width="20" />
+                                        <p:dataExporter type="csv" target="adeudos" fileName="ultimosPagos" />
+                                    </h:commandLink>
+
+                                    <h:commandLink>
+                                        <p:graphicImage  url="../../resources/images/exportar/xml.png" width="20" />
+                                        <p:dataExporter type="xml" target="adeudos" fileName="ultimosPagos" />
+                                    </h:commandLink>
+
+                                </div>
+                            </f:facet>
+                            <p:column headerText="NroSocio" visible="#{balanceController.colVisibles[0]}">  
+                                <h:outputText value ="#{adeudos.nroSocio}"/> 
+                            </p:column>  
+                            <p:column headerText="Nombre" colspan="2" visible="#{balanceController.colVisibles[1]}">  
+                                <h:outputText value="#{adeudos.nombre}"/>  
+                            </p:column>  
+                            <p:column headerText="Mes" visible="#{balanceController.colVisibles[2]}">  
+                                <h:outputText value ="#{adeudos.mes}"/> 
+                            </p:column> 
+                            <p:column headerText="Anio" visible="#{balanceController.colVisibles[3]}">  
+                                <h:outputText value ="#{adeudos.anio}"/> 
+                            </p:column> 
+                            <p:column headerText="Fecha Pago" colspan="2" visible="#{balanceController.colVisibles[4]}">  
+
+                                <h:outputText value ="#{adeudos.fechaPago}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                </h:outputText>
+                            </p:column> 
+                            <p:column headerText="Meses Adeudados" visible="#{balanceController.colVisibles[5]}">  
+                                <h:outputText value ="#{adeudos.mesesAdeudados}"/> 
+                            </p:column> 
+                            <p:column headerText="Saldo" visible="#{balanceController.colVisibles[6]}">  
+                                <h:outputText value ="#{adeudos.mesesAdeudados}"/> 
+                            </p:column> 
+                            <p:column headerText="Tipo Cuota" colspan="2" visible="#{balanceController.colVisibles[7]}">  
+                                <h:outputText value ="#{adeudos.nombreTipo}"/> 
+                            </p:column> 
+                            <p:column headerText="Importe" visible="#{balanceController.colVisibles[8]}">  
+                                <h:outputText value ="#{adeudos.importeCuota}">
+                                    <f:convertNumber type="currency" currencySymbol="$" />
+                                </h:outputText>
+                            </p:column> 
+                        </p:dataTable>  
+                    </p:panelGrid>
+
+                </p:rowExpansion>
+
+            </p:dataTable>  
+            <p:blockUI block="formDataTable" trigger="pickerMonth" >
+                Cargando<br />
+
+            </p:blockUI>
+            <p:blockUI block="formDataTable" trigger="balance" >
+                Cargando<br />
+
+            </p:blockUI>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

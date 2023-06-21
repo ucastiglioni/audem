@@ -26,12 +26,16 @@
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right">
                                 <!--<p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download"/>-->
-                                <p:commandButton value="Exportar" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
+                                <p:commandButton value="PDF" icon="pi pi-download" styleClass="ui-button-help" ajax="false">
                                     <p:dataExporter type="pdf" target="dt-socios" fileName="socios"/>
+                                </p:commandButton>
+                                 <p:commandButton value="Excel" icon="pi pi-download" styleClass="ui-button-help" ajax="false">
+                                    <p:dataExporter type="xlsx" target="dt-socios" fileName="socios"/>
                                 </p:commandButton>
                             </p:toolbarGroup>
                         </p:toolbar>
-                        <p:dataTable id="dt-socios" widgetVar="dtSocios" var="socio" value="#{socioController.socios}" reflow="true" styleClass="products-table"
+                        <p:dataTable id="dt-socios" widgetVar="dtSocios" 
+                                     var="socio" value="#{socioController.socios}" reflow="true" styleClass="products-table"
                                      selection="#{socioController.selectedSocios}" rowKey="#{socio.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
                             <f:facet name="header">
                                 <div class="products-table-header">
@@ -55,7 +59,7 @@
                             <p:column exportable="false">
                                 <p:rowToggler />
                             </p:column>
-                            <p:column headerText="Code" sortBy="#{socio.id}" filterBy="#{socio.id}">
+                            <p:column headerText="Id" sortBy="#{socio.id}" filterBy="#{socio.id}">
                                 <h:outputText value="#{socio.id}" />
                             </p:column>
                             <p:column headerText="Nombre" sortBy="#{socio.nombre}" filterBy="#{socio.nombre}">
@@ -71,8 +75,11 @@
                                 <h:outputText value="#{socio.celular}" />
                             </p:column>
                             <p:column exportable="false">
-                                <p:commandButton icon="pi pi-pencil" update=":form:manage-socio-content" oncomplete="PF('manageSocioDialog').show()" 
-                                                 styleClass="edit-button rounded-button ui-button-success" process="@this">
+                                <p:commandButton icon="pi pi-pencil" 
+                                                 update=":form:manage-socio-content" 
+                                                 oncomplete="PF('manageSocioDialog').show()" 
+                                                 styleClass="edit-button rounded-button ui-button-success" 
+                                                 process="@this">
                                     <f:setPropertyActionListener value="#{socio}" target="#{socioController.socio}" />
                                 </p:commandButton>
                                 <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this" oncomplete="PF('deleteSocioDialog').show()" >
@@ -105,7 +112,12 @@
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times" />
                         </p:confirmDialog>
 
-                        <p:dialog header="Detalle socio" showEffect="fade" modal="true" widgetVar="manageSocioDialog" responsive="true">
+                        <p:dialog header="Detalle socio" 
+                                  showEffect="fade" 
+                                  modal="true" 
+                                  widgetVar="manageSocioDialog" 
+                                  responsive="true"
+                                  >
                             <p:outputPanel id="manage-socio-content" class="ui-fluid">
                                 <p:outputPanel rendered="#{not empty socioController.socio}">
                                     <p:graphicImage name="images/product/avatar_2.png" library="demo" styleClass="product-image" rendered="#{not empty crudDemoView.selectedProduct.image}" />
@@ -265,10 +277,20 @@
 
                                                 <h:outputText value="Nombre:" />
                                                 <h:outputText value="#{socioController.socio.nombre}" />
-
+                                                
                                                 <h:outputText value="Documento:" />
                                                 <h:outputText value="#{socioController.socio.ci}" />
-
+                                                                                                
+                                                <h:outputText value="Fecha ingreso:" />
+                                                <h:outputText value="#{socioController.socio.fechaInscripcion}" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </h:outputText>
+                                                
+                                                <h:outputText value="Fecha nacimiento:" />
+                                                <h:outputText value="#{socioController.socio.fechaNacimiento}" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </h:outputText>
+                                                
                                                 <h:outputText value="Direccion:" />
                                                 <h:outputText value="#{socioController.socio.domicilio}" />
 
