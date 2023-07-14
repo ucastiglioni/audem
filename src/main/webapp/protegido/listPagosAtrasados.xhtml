@@ -1,0 +1,108 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <h:outputStylesheet name="css/flags/flags.css" library="demo" />
+    </ui:define>
+
+    <ui:define name="title">Pagos</ui:define>
+
+    <ui:define name="content">
+        <h:form id="formDataTable">
+            <p:growl id="messages" showDetail="true" />
+            <div class="grid">
+                <div class="col-12">
+                    <div class="card">
+                        <h5>Pagos atrasados </h5>
+                        <p>Pagos atrasados de clientes.</p>
+                        <p:toolbar styleClass="mb-4">
+                            <p:toolbarGroup align="right">
+                                <!--<p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download"/>-->
+                                <p:commandButton value="PDF" icon="pi pi-download" styleClass="ui-button-help" ajax="false">
+                                    <p:dataExporter type="pdf" target="adeudosTable" fileName="pagos"/>
+                                </p:commandButton>
+                                <p:commandButton value="Excel" icon="pi pi-download" styleClass="ui-button-help" ajax="false">
+                                    <p:dataExporter type="xlsx" target="adeudosTable" fileName="pagos"/>
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+
+                        <p:dataTable var="pagos" 
+                                     value="#{pagosAtrasadosController.lazyModel}" 
+                                     paginator="true" rows="10" paginatorPosition="bottom"
+                                     paginatorTemplate="{Exporters} {RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="5,10,15" 
+                                     rowKey="#{pagos.id}"
+                                     selectionMode="single" 
+                                     id="adeudosTable" 
+                                     lazy="true"
+                                     reflow="true">
+
+                            <f:facet name="header">Ultimos Pagos</f:facet>
+                            <!-- Exportar todas las paginas filtradas Maxi 23032018 
+                               Debe estar {Exporters} en la property paginatorTemplate-->
+                            <f:facet name="{Exporters}">
+                                <div style="float:right">
+                                    <h:commandLink>
+                                        <p:graphicImage url="../../resources/images/exportar/excel.png" width="20" />
+                                        <p:dataExporter type="xls" target="carTable" fileName="ultimosPagos" />
+                                    </h:commandLink>
+
+                                    <h:commandLink>
+                                        <p:graphicImage url="../../resources/images/exportar/pdf.png" width="20"  />
+                                        <p:dataExporter type="pdf" target="carTable" fileName="ultimosPagos" />
+                                    </h:commandLink>
+
+                                    <h:commandLink>
+                                        <p:graphicImage url="../../resources/images/exportar/csv.png" width="20" />
+                                        <p:dataExporter type="csv" target="carTable" fileName="ultimosPagos" />
+                                    </h:commandLink>
+
+                                    <h:commandLink>
+                                        <p:graphicImage  url="../../resources/images/exportar/xml.png" width="20" />
+                                        <p:dataExporter type="xml" target="carTable" fileName="ultimosPagos" />
+                                    </h:commandLink>
+
+                                </div>
+                            </f:facet>
+                            <p:column headerText="No.Socio" filterBy="#{pagos.idSocio}" sortBy="#{pagos.idSocio}" width="">
+                                <h:outputText value="#{pagos.idSocio}" />
+                            </p:column>
+                            <p:column headerText="Nombre" colspan="2" filterBy="#{pagos.nombre}" sortBy="#{pagos.nombre}">
+                                <h:outputText value="#{pagos.nombre}" />
+                            </p:column>
+                            
+                            <p:column headerText="Fecha ultimo pago" colspan="2" sortBy="#{pagos.fechaPago}" filterBy="#{pagos.fechaPago}">
+                                
+                                <h:outputText value="#{pagos.fechaPago}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+
+                            
+                            <p:column headerText="Ultimo Anio Pago"  filterBy="#{pagos.anio}" sortBy="#{pagos.anio}">
+                                <h:outputText value="#{pagos.anio}" />
+                            </p:column>
+                            <p:column headerText="Ultimo Mes Pago"  filterBy="#{pagos.mes}" sortBy="#{pagos.mes}" >
+                                <h:outputText value="#{pagos.mes}" />
+                            </p:column>                      
+                            <p:column headerText="Importe Cuota Adeudado" >
+                                <h:outputText value="#{pagos.importeCuota}" />
+                            </p:column>                      
+                            <p:column headerText="Meses Adeudados" sortBy="#{pagos.mesesAdeudados}">
+                                <h:outputText value="#{pagos.mesesAdeudados}" />
+                            </p:column> 
+                            <p:column headerText="Dia de vencimiento pago" sortBy="#{pagos.diaDePago}">
+                                <h:outputText value="#{pagos.diaDePago}" />
+                            </p:column> 
+                        </p:dataTable>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

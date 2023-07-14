@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -87,8 +88,73 @@ public class PagoFacade extends AbstractFacade<Pago> implements PagoFacadeLocal 
 
     @Override
     public List<PagoAdeudos> getDeudores() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+       
+        List<PagoAdeudos> listado = new ArrayList<PagoAdeudos>();
+        
+//        String sql ="select    p.id, " +
+//                    "          p.idsocio, " +
+//                    "          timestampdiff(month,DATE(CONCAT(p.anio,'-',p.mes,'-01')),curdate()) MesesAtrasos " +
+//                    "FROM pagos p, " +
+//                    "     socio s "  +
+//                    "WHERE (p.idsocio,p.anio, p.mes,p.id ) =                           " +
+//                    "			 (SELECT p1.idsocio,max(p1.anio), max(p1.mes),max(id) " +
+//                    "              FROM   pagos p1" +
+//                    "			  WHERE  p1.idsocio =  p.idsocio " +
+//                    "             	AND  anio = (SELECT max(p2.anio) " +
+//                    "                			 FROM   pagos p2  " +
+//                    "          				     WHERE  p2.idsocio =  p.idsocio)" +
+//                    "	 )" +
+//                    "  and p.idsocio = s.id	 " +
+//                    "  and s.idcestado = 1";
+                    //"  and s.idcategoria in (1,2) " +
+                    //"  and s.idtipocuota in (1,2,3,4,5) ";
+                    
+    String sql="SELECT "
+            + "p.id,"
+            + "s.id,"
+            + "concat(s.nombre,' ', s.apellido) nombre,"
+            + "s.FECHAINSCRIPCION,"
+            + "Day(s.FECHAINSCRIPCION) diadepago,"
+            + "p.mes ultimoMesPago,"
+            + "p.fechagrabado fechaultimopago,"
+            + "Month(curdate()) mesactual,"
+            + "Month(curdate())-p.mes mesesadeudados "
+            + "FROM "
+            + "cdi.socio s , cdi.pagos p "
+            + "where s.id=p.idSocio "
+            + "and Month(curdate()) > (select max(p2.mes) from cdi.pagos p2 where idSocio=p.idSocio) "
+            + "and Day(curdate()) > Day(s.FECHAINSCRIPCION);";
+            
+        System.out.println(sql);
+//        List lista = sesion.createSQLQuery(sql).list();
+        List lista = em.createNativeQuery(sql).getResultList();
+       
+        
+        for ( Iterator it = lista.iterator(); it.hasNext();) {
+                Object[] array = (Object[]) it.next();
+                PagoAdeudos aux = new PagoAdeudos();
+                aux.setId(this.getRandomId());
+                aux.setPago(find((Integer) array[0]));
+                //System.out.println("Id: "+aux.getPago().getId());
+                aux.setNombre(aux.getPago().getSocio().getNombre()+" "+aux.getPago().getSocio().getApellido());
+                aux.setNroSocio(aux.getPago().getSocio().getNumeroSocio());
+                aux.setFechaPago(aux.getPago().getFechaPago());
+                aux.setAnio(aux.getPago().getAnio());
+                aux.setMes(aux.getPago().getMes());
+                aux.setImporteCuota(aux.getPago().getTipoCuota().getImporte()*Integer.valueOf(array[8].toString()));//meses adeudados * importe cuota 
+                aux.setMesesAdeudados(Integer.valueOf(array[8].toString())); //meses adeudados
+                aux.setDiaDePago(Integer.valueOf(array[4].toString()));
+                listado.add(aux);
+         }
+         return listado; 
     }
+
+    private String getRandomId() {
+        return UUID.randomUUID().toString().substring(0, 8);
+    }
+        
+    
 
     @Override
     public List<Socio> getPagaronMes(Date fecha) {

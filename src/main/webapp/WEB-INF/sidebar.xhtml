@@ -25,7 +25,8 @@
             </div>
             <div class="profile">
                 <!--<p:graphicImage name="images/profile.png" library="omega-layout" />-->
-                <p:graphicImage style="height:50%; width:50%;" name="images/logocdi.png" library="omega-layout" />
+                <!--<p:graphicImage style="height:50%; width:50%;" name="images/logocdi.png" library="omega-layout" />-->
+                <p:graphicImage style="height:50%; width:50%;" name="images/logo-round.png" library="omega-layout" />
                 <a id="profile-button" href="#">
                     
                     <span class="username">Bienvenido #{sidebarController.usuario.nombre}</span>
@@ -52,16 +53,17 @@
             </div>
             <div class="menu">
                 <po:menu widgetVar="OmegaMenuWidget">
-                    <p:menuitem id="m_dashboard" value="Menú principal" icon="pi pi-fw pi-home" outcome="/dashboard"/>
+                    <!--<p:menuitem id="m_dashboard" value="Menú principal" icon="pi pi-fw pi-home" outcome="/dashboard"/>-->
                     
                     <p:submenu id="m_components_socios" label="Socios" icon="pi pi-fw pi-user">
                         <p:menuitem id="m_formlayout_socio" value="Altas" icon="pi pi-fw pi-id-card" outcome="/protegido/socios"/> 
                     </p:submenu>
-                    <p:submenu id="m_components_pagos" label="Pagos" icon="pi pi-fw pi-user">
+                    <p:submenu id="m_components_pagos" label="Pagos" icon="pi pi-fw pi-briefcase">
                         <p:menuitem id="m_formlayout_pagos" value="Listar" icon="pi pi-fw pi-id-card" outcome="/protegido/pagos"/> 
                         <p:menuitem id="m_formlayout_balance" value="Balance" icon="pi pi-fw pi-id-card" outcome="/protegido/balance"/> 
+                        <p:menuitem id="m_formlayout_pagosAtrasados" value="Pagos atrasados" icon="pi pi-fw pi-id-card" outcome="/protegido/listPagosAtrasados"/> 
                     </p:submenu>
-                    <p:submenu id="m_components_categorias" label="Categorías" icon="pi pi-fw pi-user">
+                    <p:submenu id="m_components_categorias" label="Categorías" icon="pi pi-fw pi-share-alt">
                         <p:menuitem id="m_formlayout_categoria" value="Altas" icon="pi pi-fw pi-id-card" outcome="/protegido/categorias"/> 
                     </p:submenu>
                     <p:submenu id="m_components_estados" label="Estados" icon="pi pi-fw pi-user">
@@ -71,7 +73,7 @@
                     <p:submenu id="m_components_tipocuotas" label="Tipos cuota" icon="pi pi-fw pi-user">
                         <p:menuitem id="m_formlayout_tipoCuota" value="Altas" icon="pi pi-fw pi-id-card" outcome="/protegido/tipocuota"/> 
                     </p:submenu>
-                    
+                   <!--  
                     <p:submenu id="m_components" label="UI Kit" icon="pi pi-fw pi-star" badge="2">
                         <p:menuitem id="m_formlayout" value="Form Layout" icon="pi pi-fw pi-id-card" outcome="/formlayout"/>
                         <p:menuitem id="m_input" value="Input" icon="pi pi-fw pi-check-square" outcome="/input"/>
@@ -134,8 +136,10 @@
                             </p:submenu>
                         </p:submenu>
                     </p:submenu>
+                   
                     <p:menuitem id="m_buy" value="Buy Now" icon="pi pi-fw pi-shopping-cart" url="https://www.primefaces.org/store"/>
                     <p:menuitem id="m_doc" value="Documentation" icon="pi pi-fw pi-info-circle" outcome="/documentation"/>
+                   -->
                 </po:menu>
             </div>
         </div>

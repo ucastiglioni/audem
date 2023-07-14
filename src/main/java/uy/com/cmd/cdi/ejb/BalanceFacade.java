@@ -160,7 +160,7 @@ public class BalanceFacade extends AbstractFacade<Balance> implements BalanceFac
                 aux.setId(this.getRandomId());
 
                 aux.setNombre(array[2].toString());
-                aux.setNroSocio(Integer.valueOf(array[1].toString()));
+                aux.setNroSocio(Integer.valueOf(array[0].toString()));
                 idSocio = aux.getNroSocio();
                 //aux.setAnio(2018);
                 aux.setAnio(Integer.parseInt(strAnio));

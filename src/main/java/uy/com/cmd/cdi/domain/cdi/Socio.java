@@ -27,7 +27,7 @@ public class Socio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private int id;
 
     @Column
     private int numeroSocio;
@@ -86,13 +86,21 @@ public class Socio implements Serializable {
     @JoinColumn(name = "idcestado")
     Estado estado;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
+
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
     public int getNumeroSocio() {
         return numeroSocio;

@@ -36,6 +36,7 @@ public class PagoAdeudos implements Serializable{
     private Pago pago;
     private Integer importeCuota;
     private Integer mesesAdeudados;
+    private Integer diaDePago ;
 
     public PagoAdeudos() {
     }
@@ -119,6 +120,15 @@ public class PagoAdeudos implements Serializable{
     public void setMes(Integer mes) {
         this.mes = mes;
     }
+    
+
+    public Integer getDiaDePago() {
+        return diaDePago;
+    }
+
+    public void setDiaDePago(Integer diaDePago) {
+        this.diaDePago = diaDePago;
+    }
 
 //    public Integer getIdmedioPago() {
 //        return idmedioPago;
@@ -167,6 +177,8 @@ public class PagoAdeudos implements Serializable{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    
+    
 
 //    public String getDescMedioPagoSocio() {
 //        return descMedioPagoSocio;

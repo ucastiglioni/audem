@@ -11,6 +11,7 @@ import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.servlet.http.HttpSession;
 import uy.com.cmd.cdi.domain.cdi.Usuario;
 import uy.com.cmd.cdi.ejb.UsuarioFacade;
@@ -21,7 +22,7 @@ import uy.com.cmd.cdi.ejb.UsuarioFacadeLocal;
  * @author max
  */
 @Named
-@SessionScoped
+@ViewScoped
 public class LoginController implements Serializable {
 
     /**
@@ -51,14 +52,14 @@ public class LoginController implements Serializable {
     }
 
     public String login() {
-        
+        Usuario us;
         String redireccion = null;
         try {
-            usuario = ejbUsuario.iniciarSesion(usuario);
-            if (usuario != null) {
+            us = ejbUsuario.iniciarSesion(usuario);
+            if (us != null) {
                 //Almacenamos en la sesion de JSF
 
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
                 redireccion = "/protegido/socios?faces-redirect=true";
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Credenciales incorrectas"));

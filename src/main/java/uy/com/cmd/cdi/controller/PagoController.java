@@ -33,6 +33,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.LazyDataModel;
 import uy.com.cmd.cdi.domain.cdi.Pago;
+import uy.com.cmd.cdi.domain.cdi.PagoAdeudos;
 import uy.com.cmd.cdi.domain.cdi.Socio;
 import uy.com.cmd.cdi.ejb.AbstractFacade;
 import uy.com.cmd.cdi.ejb.PagoFacade;
@@ -45,6 +46,8 @@ public class PagoController implements Serializable {
 
     private LazyDataModel<Pago> pagosDataModel;
 
+    List<PagoAdeudos> deudores;
+    
     private Pago selectedPago;
 
     private List<Pago> selectedPagos;
@@ -63,6 +66,9 @@ public class PagoController implements Serializable {
 
     @PostConstruct
     public void init() {
+        
+        deudores=new ArrayList<PagoAdeudos>();
+        
         socios = ejbSocio.findAll();
         selectedPago = new Pago();
         this.pagosDataModel = new LazyDataModel<Pago>() {
@@ -90,7 +96,7 @@ public class PagoController implements Serializable {
                 }
                 return null;
             }
-
+            
             @Override
             public String getRowKey(Pago item) {
                 System.out.println(item.getId());
@@ -140,6 +146,17 @@ public class PagoController implements Serializable {
     public void setSocios(List<Socio> socios) {
         this.socios = socios;
     }
+
+    public List<PagoAdeudos> getDeudores() {
+        deudores = ejbPago.getDeudores();
+        return deudores;
+    }
+
+    public void setDeudores(List<PagoAdeudos> deudores) {
+        this.deudores = deudores;
+    }
+    
+    
 
     public void modificarPago() {
 

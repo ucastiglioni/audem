@@ -18,7 +18,7 @@
                 <div class="col-12">
                     <div class="card">
                         <h5>Pagos </h5>
-                        <p>Pagos de clientes.</p>
+                        <p>Pagos de socios.</p>
                         <p:toolbar styleClass="mb-4">
                             <p:toolbarGroup align="right">
                                 <!--<p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download"/>-->
@@ -34,8 +34,10 @@
                         <p:dataTable id="tblPagos"
                                      widgetVar="pagosDT" 
                                      var="pago" 
-                                     value="#{pagoController.pagosDataModel}" reflow="true" styleClass="products-table"
-                                     selection="#{pagoController.selectedPagos}" rowKey="#{pago.id}" 
+                                     value="#{pagoController.pagosDataModel}" 
+                                     reflow="true" styleClass="products-table"
+                                     selection="#{pagoController.selectedPagos}" 
+                                     rowKey="#{pago.id}" 
                                      paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" lazy="true">
                             <f:facet name="header">
                                 <div class="pagos-table-header">
@@ -55,7 +57,7 @@
                                                        itemValue="#{socio.id}"/>
                                     </p:selectOneMenu>
                                 </f:facet>
-                                <h:outputText value="#{pago.socio.nombre}#{pago.socio.apellido}" />
+                                <h:outputText value="#{pago.socio.nombre} #{pago.socio.apellido}" />
                             </p:column>
                             <!--<p:graphicImage name="images/avatar/{pago.representative.image}" library="demo" width="32" style="vertical-align: middle" />-->
                             <p:graphicImage name="images/avatar/avatar?4.png" library="demo" width="32" style="vertical-align: middle" />

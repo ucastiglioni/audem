@@ -281,7 +281,8 @@ public class SocioController implements Serializable {
                 // nunca pagó 
                 ZoneId timeZone = ZoneId.systemDefault();
                 LocalDate fecha = socio.getFechaInscripcion().toInstant().atZone(timeZone).toLocalDate();
-                int mes = fecha.getDayOfMonth();
+                //int mes = fecha.getDayOfMonth();
+                int mes = fecha.getMonthValue();
                 int anio = fecha.getYear();
                 int importe = socio.getTipoCuota().getImporte();
                 selectedPago.setMes(mes);
