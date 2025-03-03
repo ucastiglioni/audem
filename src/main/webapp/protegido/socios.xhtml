@@ -68,6 +68,9 @@
                             <p:column headerText="Id" sortBy="#{socio.id}" filterBy="#{socio.id}" filterMatchMode="exact" >
                                 <h:outputText value="#{socio.id}" />
                             </p:column>
+                            <p:column headerText="nro.Socio" sortBy="#{socio.numeroSocio}" filterBy="#{socio.numeroSocio}" filterMatchMode="exact" >
+                                <h:outputText value="#{socio.numeroSocio}" />
+                            </p:column>
                             <p:column headerText="Nombre" sortBy="#{socio.nombre}" filterBy="#{socio.nombre}">
                                 <h:outputText value="#{socio.nombre}" />
                             </p:column>
@@ -292,7 +295,7 @@
                         <div class="grid">
                             <div class="col-12 ">
                                 <div class="card ui-fluid">
-                                    <h5>Socio</h5>
+                                    <h5>Socio #{socioController.socio.numeroSocio}</h5>
 
                                     <div class="formgrid grid">
                                         <div class="field col">
